@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tahwishtak/core/routing/routes.dart';
+import 'package:tahwishtak/core/services/app_storage_key.dart';
+import 'package:tahwishtak/core/services/shared_pref_helper.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
 import 'package:tahwishtak/feature/onBoarding/data/model/on_boarding_model.dart';
 
@@ -20,10 +23,14 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
     emit(OnBoardingState.onBoardingIndex(indexData));
   }
 
+  void skip(context) {
+    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+    SharedPrefHelper.setData(PrefKeys.prefsKeyOnBoardingScreenView, true);
+  }
+
   void goNext(context) {
-    if (indexData == 3) {
-      // Navigator.pushReplacementNamed(context, Routes.loginRoute);
-      // _appPreferences.setOnBoardingScreenView();
+    if (indexData == 2) {
+      skip(context);
     } else {
       pageController.nextPage(
         duration: const Duration(milliseconds: 400),

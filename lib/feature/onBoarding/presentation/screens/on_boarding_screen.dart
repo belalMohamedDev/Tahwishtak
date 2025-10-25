@@ -26,10 +26,13 @@ class OnBoardingScreens extends StatelessWidget {
                 animation: onBoardingCubit.pageController,
                 builder: (context, child) {
                   double value = 1.0;
-                  if (onBoardingCubit.pageController.hasClients) {
+                  if (onBoardingCubit.pageController.hasClients &&
+                      onBoardingCubit.pageController.position.haveDimensions &&
+                      onBoardingCubit.pageController.page != null) {
                     value = onBoardingCubit.pageController.page! - index;
                     value = (1 - (value.abs() * 0.3)).clamp(0.0, 1.0);
                   }
+
                   return Transform.scale(
                     scale: value,
                     child: Opacity(
@@ -44,7 +47,6 @@ class OnBoardingScreens extends StatelessWidget {
             },
           ),
 
-         
           bottomSheet: Container(
             height: responsive.setHeight(20),
             padding: responsive.setPadding(
@@ -60,16 +62,23 @@ class OnBoardingScreens extends StatelessWidget {
               child: onBoardingCubit.indexData == 2
                   ? ElevatedButton(
                       key: const ValueKey('startBtn'),
-                      onPressed: () {},
+                      onPressed: () {
+                        onBoardingCubit.goNext(context);
+                      },
                       child: const Text("يلا نبدأ"),
                     )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                       children: [
-                        Text(
-                          'تخطى',
-                          style: Theme.of(context).textTheme.titleLarge,
+                        TextButton(
+                          onPressed: () {
+                            onBoardingCubit.skip(context);
+                          },
+                          child: Text(
+                            'تخطى',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
                         ),
                         SizedBox(width: responsive.setWidth(5)),
                         SmoothPageIndicator(
@@ -97,8 +106,6 @@ class OnBoardingScreens extends StatelessWidget {
                     ),
             ),
           ),
-
-       
         );
       },
     );
