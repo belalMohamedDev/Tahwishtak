@@ -20,10 +20,15 @@ ThemeData getApplicationTheme(BuildContext context) {
         minimumSize: const Size(double.infinity, 50),
         backgroundColor: ColorManger.primaryColor,
         foregroundColor: ColorManger.bGColor,
+
         textStyle: getMediumStyle(
           fontSize: responsive.setTextSize(3.8),
           color: ColorManger.bGColor,
         ),
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(responsive.setBorderRadius(2)),
         ),
@@ -61,7 +66,7 @@ ThemeData getApplicationTheme(BuildContext context) {
 
     //
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: Colors.brown.shade50,
+      backgroundColor: ColorManger.bGColor,
       showUnselectedLabels: true,
     ),
 

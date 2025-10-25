@@ -6,4 +6,5 @@ class ColorManger {
   static Color textColor = const Color(0xff333333);
   static Color secondaryTextColor = const Color(0xff828282);
   static Color bGColor = const Color(0xffF6FBFA);
+  static Color whiteColor = const Color(0xffffffff);
 }
