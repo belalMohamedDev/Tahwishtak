@@ -62,6 +62,11 @@ ThemeData getApplicationTheme(BuildContext context) {
         fontSize: responsive.setTextSize(3),
         color: ColorManger.secondaryTextColor,
       ),
+
+      titleSmall: getExtraBoldStyle(
+        fontSize: responsive.setTextSize(3),
+        color: ColorManger.whiteColor,
+      ),
     ),
 
     //
@@ -78,7 +83,7 @@ ThemeData getApplicationTheme(BuildContext context) {
         color: ColorManger.secondaryTextColor,
       ),
       hintStyle: getMediumStyle(
-        fontSize: 11,
+        fontSize: responsive.setTextSize(3.5),
         color: ColorManger.secondaryTextColor,
       ),
       errorStyle: TextStyle(
@@ -101,9 +106,9 @@ ThemeData getApplicationTheme(BuildContext context) {
         color: ColorManger.secondaryTextColor,
       ),
       filled: true,
-      fillColor: ColorManger.secondaryTextColor,
+      fillColor: ColorManger.bGColor,
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: ColorManger.secondaryTextColor),
+        borderSide: BorderSide(color: ColorManger.primaryColor),
         borderRadius: BorderRadius.circular(responsive.setBorderRadius(2.5)),
       ),
       enabledBorder: OutlineInputBorder(

@@ -58,6 +58,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   internet_connection_checker: ^3.0.1
   json_serializable: ^6.11.1
+  flutter_iconly: ^1.0.2
 
 dev_dependencies:
   flutter_test:

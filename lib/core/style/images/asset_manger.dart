@@ -1,5 +1,5 @@
 const String imagePath = "assets/images";
-//const String jsonPath = "assets/json";
+
 
 class ImageAsset {
   static const String onBoardingFirstScreen =
@@ -8,10 +8,13 @@ class ImageAsset {
       "$imagePath/onBoardingSecondScreen.png";
   static const String onBoardingThirdScreen =
       "$imagePath/onBoardingThirdScreen.png";
+
+  static const String google = "$imagePath/google.png";
+
+  static const String facebook = "$imagePath/facebook.png";
+
+  static const String login = "$imagePath/login.png";
   static const String noRoute = "$imagePath/noRoute.svg";
 }
 
-// class JsonAsset {
-//   //onBoading screen
-//   // static const String congrat = "$jsonPath/cong.json";
-// }
+
