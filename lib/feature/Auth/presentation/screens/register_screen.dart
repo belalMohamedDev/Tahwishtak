@@ -16,7 +16,7 @@ class SignUpScreen extends StatelessWidget {
         children: [
           RegisterForm(),
           Container(
-            padding: responsive.setPadding(top: 31, left: 30, right: 30),
+            padding: responsive.setPadding(top: 32, left: 30, right: 30),
             child: Container(
               height: responsive.setHeight(0.4),
               width: double.infinity,
@@ -29,7 +29,7 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: responsive.setHeight(7),
+            top: responsive.setHeight(8),
             left: responsive.setWidth(19),
             child: Image.asset(
               ImageAsset.signUp,
@@ -41,7 +41,3 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-

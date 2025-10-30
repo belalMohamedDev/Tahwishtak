@@ -13,7 +13,7 @@ class RegisterForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final responsive = ResponsiveUtils(context);
     return Container(
-      padding: responsive.setPadding(top: 28),
+      padding: responsive.setPadding(top: 30),
       child: Container(
         height: double.infinity,
         width: double.infinity,
@@ -72,22 +72,7 @@ class RegisterForm extends StatelessWidget {
                   hintText: "ادخل كلمة السر",
                 ),
               ),
-              SizedBox(height: responsive.setHeight(2)),
-              TextFormField(
-                textAlign: TextAlign.right,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.emailAddress,
 
-                autofillHints: const [AutofillHints.email],
-
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    IconlyBold.hide, // Email icon
-                    size: responsive.setIconSize(5.5),
-                  ),
-                  hintText: "اعد كتابة كلمة السر",
-                ),
-              ),
               SizedBox(height: responsive.setHeight(2)),
               ElevatedButton(
                 onPressed: () {},

@@ -4,7 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:tahwishtak/core/common/toast/show_toast.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
-import 'package:tahwishtak/feature/Auth/logic/bloc/login_bloc.dart';
+import 'package:tahwishtak/feature/Auth/logic/loginBloc/login_bloc.dart';
 import 'package:tahwishtak/feature/Auth/presentation/widgets/dont_have_account.dart';
 import 'package:tahwishtak/feature/Auth/presentation/widgets/google_and_face_auth_widget.dart';
 import 'package:tahwishtak/feature/Auth/presentation/widgets/or_widget.dart';
