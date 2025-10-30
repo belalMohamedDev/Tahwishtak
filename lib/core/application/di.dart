@@ -5,6 +5,7 @@ import 'package:tahwishtak/core/application/bloc_observer.dart';
 import 'package:tahwishtak/core/network/api/app_api.dart';
 import 'package:tahwishtak/core/network/dio_factory/dio_factory.dart';
 import 'package:tahwishtak/feature/Auth/data/model/repository/auth_repo.dart';
+import 'package:tahwishtak/feature/Auth/logic/SignUpBloc/sign_up_bloc.dart';
 import 'package:tahwishtak/feature/Auth/logic/loginBloc/login_bloc.dart';
 import 'package:tahwishtak/feature/onBoarding/cubit/on_boarding_cubit.dart';
 
@@ -33,4 +34,6 @@ Future<void> _initAuth() async {
     () => AuthenticationRepositoryImplement(instance()),
   );
   instance.registerFactory<LoginBloc>(() => LoginBloc(instance()));
+
+  instance.registerFactory<SignUpBloc>(() => SignUpBloc(instance()));
 }

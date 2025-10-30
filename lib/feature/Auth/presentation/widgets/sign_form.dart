@@ -161,7 +161,7 @@ class LoginForm extends StatelessWidget {
                                 ),
                                 SizedBox(width: responsive.setHeight(2)),
                                 Text(
-                                  "جارى التحميل",
+                                  "جارى التسجيل",
                                   style: Theme.of(context).textTheme.titleSmall
                                       ?.copyWith(
                                         fontSize: responsive.setTextSize(3.5),
