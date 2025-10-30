@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tahwishtak/core/application/di.dart';
 import 'package:tahwishtak/core/common/statsScreen/route_state.dart';
 import 'package:tahwishtak/core/routing/routes.dart';
+import 'package:tahwishtak/feature/Auth/logic/bloc/login_bloc.dart';
 import 'package:tahwishtak/feature/Auth/presentation/screens/login_screen.dart';
 import 'package:tahwishtak/feature/Auth/presentation/screens/register_screen.dart';
 import 'package:tahwishtak/feature/onBoarding/cubit/on_boarding_cubit.dart';
@@ -20,7 +21,12 @@ class RouteGenerator {
         );
 
       case Routes.loginRoute:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => instance<LoginBloc>(),
+            child: const LoginScreen(),
+          ),
+        );
 
       case Routes.signUpRoute:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());

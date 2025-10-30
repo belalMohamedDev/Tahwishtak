@@ -18,11 +18,11 @@ class LoginScreen extends StatelessWidget {
         children: [
           LoginForm(),
           Positioned(
-            top: responsive.setHeight(9),
+            top: responsive.setHeight(5),
             left: responsive.setWidth(20),
             child: Image.asset(
               ImageAsset.login,
-              height: responsive.setHeight(34),
+              height: responsive.setHeight(32),
             ),
           ),
         ],

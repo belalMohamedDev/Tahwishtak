@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:tahwishtak/core/common/toast/show_toast.dart';
@@ -15,20 +14,18 @@ class TokenInterceptor extends Interceptor {
 
   @override
   void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     // Obtain the access token
-    String? accessToken =
-        await SharedPrefHelper.getSecuredString(PrefKeys.accessToken);
-
-    String? language =
-        SharedPrefHelper.getString(PrefKeys.prefsLanguage).isEmpty
-            ? 'en'
-            : SharedPrefHelper.getString(PrefKeys.prefsLanguage);
+    String? accessToken = await SharedPrefHelper.getSecuredString(
+      PrefKeys.accessToken,
+    );
 
     // Add headers
     options.headers["Accept"] = "application/json";
     options.headers["Authorization"] = "Bearer $accessToken";
-    options.headers["lang"] = language;
+    options.headers["lang"] = "ar";
 
     return handler.next(options); // continue
   }
@@ -37,8 +34,9 @@ class TokenInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
       // Obtain the refresh token
-      String? refreshToken =
-          await SharedPrefHelper.getSecuredString(PrefKeys.refreshToken);
+      String? refreshToken = await SharedPrefHelper.getSecuredString(
+        PrefKeys.refreshToken,
+      );
 
       try {
         // Request a new access token
@@ -52,15 +50,18 @@ class TokenInterceptor extends Interceptor {
 
         // Save the new access token
         await SharedPrefHelper.setSecuredString(
-            PrefKeys.accessToken, newAccessToken);
+          PrefKeys.accessToken,
+          newAccessToken,
+        );
 
         final String fullPath = ApiConstants.baseUrl + err.requestOptions.path;
 
         // Retry the original request with the new access token
         err.requestOptions.headers["Authorization"] = "Bearer $newAccessToken";
         final opts = Options(
-            method: err.requestOptions.method,
-            headers: err.requestOptions.headers);
+          method: err.requestOptions.method,
+          headers: err.requestOptions.headers,
+        );
         final cloneReq = await dio.request(
           fullPath,
           options: opts,
@@ -107,8 +108,9 @@ class TokenInterceptor extends Interceptor {
 
     if (context != null) {
       ShowToast.showToastErrorTop(
-          errorMessage: "انتهت جلستك. يرجى تسجيل الدخول مرة أخرى.",
-          context: context);
+        errorMessage: "انتهت جلستك. يرجى تسجيل الدخول مرة أخرى.",
+        context: context,
+      );
 
       // Show session expired message
       navigatorKey.currentState?.pushNamedAndRemoveUntil(
