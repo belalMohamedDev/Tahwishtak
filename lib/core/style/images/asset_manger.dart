@@ -1,6 +1,5 @@
 const String imagePath = "assets/images";
 
-
 class ImageAsset {
   static const String onBoardingFirstScreen =
       "$imagePath/onBoardingFirstScreen.png";
@@ -14,7 +13,7 @@ class ImageAsset {
   static const String facebook = "$imagePath/facebook.png";
 
   static const String login = "$imagePath/login.png";
+  static const String signUp = "$imagePath/signUp.png";
+  static const String signUpShadow = "$imagePath/signUpShadow.png";
   static const String noRoute = "$imagePath/noRoute.svg";
 }
-
-

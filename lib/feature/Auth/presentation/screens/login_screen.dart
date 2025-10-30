@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
-import 'package:tahwishtak/feature/Auth/presentation/widgets/text_form_field_and_button_container.dart';
+import 'package:tahwishtak/feature/Auth/presentation/widgets/sign_form.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
 
       body: Stack(
         children: [
-          TextFormFieldAndButtonContainer(),
+          LoginForm(),
           Positioned(
             top: responsive.setHeight(9),
             left: responsive.setWidth(20),

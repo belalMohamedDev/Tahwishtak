@@ -27,8 +27,6 @@ class _MyAppState extends State<MyApp> {
       theme: getApplicationTheme(context),
     );
   }
-
-  // Extracted logic for determining the initial route
 }
 
 String _getInitialRoute() {
