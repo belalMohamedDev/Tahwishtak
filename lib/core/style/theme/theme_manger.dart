@@ -9,6 +9,7 @@ ThemeData getApplicationTheme(BuildContext context) {
   final responsive = ResponsiveUtils(context);
 
   return ThemeData(
+    fontFamily: FontConsistent.fontFamilyCairo,
     scaffoldBackgroundColor: ColorManger.bGColor,
     pageTransitionsTheme: const PageTransitionsTheme(
       builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder()},

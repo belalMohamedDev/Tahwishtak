@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:tahwishtak/core/common/toast/show_toast.dart';
+import 'package:tahwishtak/core/routing/routes.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
+import 'package:tahwishtak/core/utils/app_login.dart';
+import 'package:tahwishtak/core/utils/extensions.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
 import 'package:tahwishtak/feature/Auth/logic/loginBloc/login_bloc.dart';
 import 'package:tahwishtak/feature/Auth/presentation/widgets/dont_have_account.dart';
@@ -19,20 +22,19 @@ class LoginForm extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           error: (apiErrorModel) {
-            // Show an error toast when login fails
             ShowToast.showToastErrorTop(
               errorMessage: apiErrorModel.message!,
               context: context,
             );
           },
           suceess: (authResponse) {
-            // Show a success toast when login is successful
             ShowToast.showToastSuccessTop(
               message: authResponse.message!,
               context: context,
             );
-            // Navigate to the map screen after a successful login
-            // AppLogin().storeAuthData(authResponse);
+            AppLogin().storeAuthData(authResponse);
+
+            context.pushReplacementNamed(Routes.homRoute);
           },
         );
       },

@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
 String _getInitialRoute() {
   if (AppInitialRoute.isOnBoardingScreen) {
     if (AppInitialRoute.isLoggedInUser) {
-      return Routes.loginRoute;
+      return Routes.bottomNavBarRoute;
     } else {
       return Routes.loginRoute;
     }

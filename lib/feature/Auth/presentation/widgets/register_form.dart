@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:tahwishtak/core/common/toast/show_toast.dart';
+import 'package:tahwishtak/core/routing/routes.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
+import 'package:tahwishtak/core/utils/app_login.dart';
+import 'package:tahwishtak/core/utils/extensions.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
 import 'package:tahwishtak/feature/Auth/logic/SignUpBloc/sign_up_bloc.dart';
 import 'package:tahwishtak/feature/Auth/presentation/widgets/dont_have_account.dart';
@@ -28,6 +31,10 @@ class RegisterForm extends StatelessWidget {
               message: authResponse.message!,
               context: context,
             );
+
+            AppLogin().storeAuthData(authResponse);
+
+            context.pushReplacementNamed(Routes.homRoute);
           },
         );
       },
