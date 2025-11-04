@@ -62,6 +62,7 @@ dependencies:
   animated_bottom_navigation_bar: ^1.4.0
   persistent_bottom_nav_bar_v2: ^6.2.0
   sliding_clipped_nav_bar: ^3.1.1
+  syncfusion_flutter_gauges: ^31.1.19
 
 dev_dependencies:
   flutter_test:

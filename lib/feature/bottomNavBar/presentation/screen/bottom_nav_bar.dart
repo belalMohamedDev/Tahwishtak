@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
+import 'package:tahwishtak/feature/bottomNavBar/presentation/screen/home_screen.dart';
 
 class NativeBottomNavBar extends StatefulWidget {
   const NativeBottomNavBar({super.key});
@@ -13,7 +14,7 @@ class NativeBottomNavBar extends StatefulWidget {
 
 class _NativeBottomNavBarState extends State<NativeBottomNavBar> {
   late PageController _pageController;
-  int selectedIndex = 0;
+  int selectedIndex = 3;
 
   @override
   void initState() {
@@ -81,8 +82,5 @@ List<Widget> _listOfWidget = <Widget>[
     alignment: Alignment.center,
     child: const Icon(Icons.bolt, size: 56, color: Colors.brown),
   ),
-  Container(
-    alignment: Alignment.center,
-    child: const Icon(Icons.tune_rounded, size: 56, color: Colors.brown),
-  ),
+  HomePage(),
 ];
