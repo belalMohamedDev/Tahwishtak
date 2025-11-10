@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage>
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: Colors.grey.withValues(alpha: 0.2),
             blurRadius: 6,
             offset: const Offset(0, 3),
           ),
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage>
             ),
             child: SizeTransition(
               sizeFactor: _animation,
-              // axisAlignment: -1.0,
+              axisAlignment: -1.0,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage>
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.25),
+                          color: Colors.grey.withValues(alpha: 0.25),
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage>
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.12),
+                            color: Colors.grey.withValues(alpha: 0.12),
                             blurRadius: 30,
                             offset: const Offset(0, 10),
                           ),

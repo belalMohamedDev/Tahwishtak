@@ -9,6 +9,7 @@ class ApiConstants {
   static const String resetPassword = '/v1/api/auth/resetPassword';
   static const String refreshToken = '$baseUrl/v1/api/auth/token';
   static const String logOut = '/v1/api/auth/logout';
+  static const String dailyActivity = '/v1/api/dailyActivity';
 
 
 

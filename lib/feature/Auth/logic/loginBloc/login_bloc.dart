@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tahwishtak/core/network/apiResult/api_reuslt.dart';
 import 'package:tahwishtak/core/network/failure/api_error_model.dart';
 import 'package:tahwishtak/core/utils/app_regex.dart';
-import 'package:tahwishtak/feature/Auth/data/model/repository/auth_repo.dart';
+import 'package:tahwishtak/feature/Auth/data/repository/auth_repo.dart';
 import 'package:tahwishtak/feature/Auth/data/model/request/login/login_request.dart';
 import 'package:tahwishtak/feature/Auth/data/model/response/auth_response.dart';
 
