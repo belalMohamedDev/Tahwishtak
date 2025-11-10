@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
+import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 
 class ActivityBottomSheet extends StatefulWidget {
   const ActivityBottomSheet({super.key});
@@ -134,10 +136,11 @@ class _ActivityBottomSheetState extends State<ActivityBottomSheet> {
 
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('تم حفظ النشاط بنجاح ✅')),
+                  context.read<HomeCubit>().fetchddActivity(
+                    selectedActivity!,
+                    amount,
                   );
+                  Navigator.pop(context);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

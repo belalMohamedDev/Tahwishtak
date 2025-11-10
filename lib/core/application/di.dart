@@ -51,5 +51,5 @@ Future<void> _initHome() async {
   instance.registerLazySingleton<HomeRepositoryImplement>(
     () => HomeRepositoryImplement(instance()),
   );
-  instance.registerFactory<HomeCubit>(() => HomeCubit(instance()));
+  instance.registerLazySingleton<HomeCubit>(() => HomeCubit(instance()));
 }
