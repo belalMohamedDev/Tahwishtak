@@ -4,7 +4,7 @@ import 'package:tahwishtak/core/network/api_constant/api_constant.dart';
 import 'package:tahwishtak/feature/Auth/data/model/request/login/login_request.dart';
 import 'package:tahwishtak/feature/Auth/data/model/request/register/register_request.dart';
 import 'package:tahwishtak/feature/Auth/data/model/response/auth_response.dart';
-import 'package:tahwishtak/feature/bottomNavBar/data/model/today_activities_model.dart';
+import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
 
 part 'app_api.g.dart';
 
@@ -19,5 +19,5 @@ abstract class AppServiceClient {
   Future<AuthResponse> signUpService(@Body() RegisterRequest registerRequest);
 
   @GET(ApiConstants.dailyActivity)
-  Future<GetTodayActivitiesModel> getTodayActivitiesService();
+  Future<TodayActivitiesModel> getTodayActivitiesService();
 }

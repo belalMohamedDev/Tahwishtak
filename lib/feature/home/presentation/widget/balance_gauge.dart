@@ -8,14 +8,12 @@ class BalanceGaugeWidget extends StatelessWidget {
   final double currentBalance;
   final double maxBalance;
   final String date;
-  final String time;
 
   const BalanceGaugeWidget({
     super.key,
     required this.currentBalance,
     required this.maxBalance,
     required this.date,
-    required this.time,
   });
 
   @override
@@ -53,7 +51,7 @@ class BalanceGaugeWidget extends StatelessWidget {
                         pointers: <GaugePointer>[
                           RangePointer(
                             value: normalizedValue,
-                            width: 0.16,
+                            width: 0.15,
                             sizeUnit: GaugeSizeUnit.factor,
                             cornerStyle: CornerStyle.bothFlat,
                             gradient: const SweepGradient(
@@ -73,7 +71,7 @@ class BalanceGaugeWidget extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          "ج  ${currentBalance.toStringAsFixed(3)}",
+                          "ج  $currentBalance",
                           style: Theme.of(context).textTheme.titleLarge!
                               .copyWith(
                                 color: ColorManger.secondaryColor,
@@ -87,14 +85,7 @@ class BalanceGaugeWidget extends StatelessWidget {
                               .copyWith(fontSize: responsive.setTextSize(4.5)),
                         ),
                         SizedBox(height: responsive.setHeight(1)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(date),
-                            const SizedBox(width: 30),
-                            Text(time),
-                          ],
-                        ),
+                        Text(date),
                       ],
                     ),
                   ),

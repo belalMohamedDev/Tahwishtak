@@ -78,12 +78,12 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
-  Future<GetTodayActivitiesModel> getTodayActivitiesService() async {
+  Future<TodayActivitiesModel> getTodayActivitiesService() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<GetTodayActivitiesModel>(
+    final _options = _setStreamType<TodayActivitiesModel>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -94,9 +94,9 @@ class _AppServiceClient implements AppServiceClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late GetTodayActivitiesModel _value;
+    late TodayActivitiesModel _value;
     try {
-      _value = GetTodayActivitiesModel.fromJson(_result.data!);
+      _value = TodayActivitiesModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

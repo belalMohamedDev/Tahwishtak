@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
-import 'package:tahwishtak/feature/bottomNavBar/presentation/screen/home_screen.dart';
+import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
+import 'package:tahwishtak/feature/home/presentation/screen/home_screen.dart';
 
 class NativeBottomNavBar extends StatefulWidget {
   const NativeBottomNavBar({super.key});
@@ -20,6 +22,7 @@ class _NativeBottomNavBarState extends State<NativeBottomNavBar> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: selectedIndex);
+    context.read<HomeCubit>().fetchGetTodayActivities();
   }
 
   void onButtonPressed(int index) {

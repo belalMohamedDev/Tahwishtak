@@ -8,7 +8,7 @@ import 'package:tahwishtak/feature/Auth/logic/loginBloc/login_bloc.dart';
 import 'package:tahwishtak/feature/Auth/presentation/screens/login_screen.dart';
 import 'package:tahwishtak/feature/Auth/presentation/screens/register_screen.dart';
 import 'package:tahwishtak/feature/bottomNavBar/presentation/screen/bottom_nav_bar.dart';
-import 'package:tahwishtak/feature/home/presentation/screen/home_screen.dart';
+import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/onBoarding/cubit/on_boarding_cubit.dart';
 import 'package:tahwishtak/feature/onBoarding/presentation/screens/on_boarding_screen.dart';
 
@@ -38,11 +38,14 @@ class RouteGenerator {
             child: const SignUpScreen(),
           ),
         );
-      case Routes.homRoute:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
 
       case Routes.bottomNavBarRoute:
-        return MaterialPageRoute(builder: (_) => const NativeBottomNavBar());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => instance<HomeCubit>(),
+            child: const NativeBottomNavBar(),
+          ),
+        );
 
       case Routes.noRoute:
         return MaterialPageRoute(builder: (_) => const RouteStatesScreen());

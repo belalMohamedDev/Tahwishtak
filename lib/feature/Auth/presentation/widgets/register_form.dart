@@ -34,7 +34,7 @@ class RegisterForm extends StatelessWidget {
 
             AppLogin().storeAuthData(authResponse);
 
-            context.pushReplacementNamed(Routes.homRoute);
+            context.pushReplacementNamed(Routes.bottomNavBarRoute);
           },
         );
       },
