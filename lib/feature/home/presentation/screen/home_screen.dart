@@ -5,7 +5,9 @@ import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
+import 'package:tahwishtak/feature/home/presentation/widget/add_price.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/balance_gauge.dart';
+import 'package:tahwishtak/feature/home/presentation/widget/daily_activity_screen.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/get_activity_icon.dart';
 
 class HomePage extends StatefulWidget {
@@ -127,7 +129,7 @@ class _HomePageState extends State<HomePage>
                       _buildOption(
                         icon: IconlyBold.plus,
                         label: 'مصروفاتك',
-                        onPressed: () {},
+                        onPressed: () => _showActivitySheet(context),
                       ),
                     ],
                   ),
@@ -359,6 +361,19 @@ class _HomePageState extends State<HomePage>
             ),
           ),
         );
+      },
+    );
+  }
+
+ 
+
+  void _showActivitySheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return const ActivityBottomSheet();
       },
     );
   }

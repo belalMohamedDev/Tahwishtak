@@ -19,4 +19,5 @@ class ImageAsset {
   static const String signUpShadow = "$imagePath/signUpShadow.png";
   static const String noRoute = "$imagePath/noRoute.svg";
   static const String profile = "$imagePath/profile.jpg";
+  static const String bottomBackground = "$imagePath/bottomBackground.png";
 }

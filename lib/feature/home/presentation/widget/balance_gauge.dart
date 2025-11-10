@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
+import 'package:tahwishtak/feature/home/presentation/widget/add_price.dart';
 
 class BalanceGaugeWidget extends StatelessWidget {
   final double currentBalance;
@@ -97,22 +98,36 @@ class BalanceGaugeWidget extends StatelessWidget {
         Positioned(
           right: responsive.setWidth(8),
           top: responsive.setHeight(2),
-          child: ShaderMask(
-            shaderCallback: (Rect bounds) {
-              return const LinearGradient(
-                colors: [Color(0xFF00796B), Color(0xFF26A69A)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ).createShader(bounds);
-            },
-            child: Icon(
-              IconlyBold.plus,
-              color: Colors.white,
-              size: responsive.setIconSize(9),
+          child: GestureDetector(
+            onTap: () => _showAddPriceSheet(context),
+            child: ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return const LinearGradient(
+                  colors: [Color(0xFF00796B), Color(0xFF26A69A)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ).createShader(bounds);
+              },
+              child: Icon(
+                IconlyBold.plus,
+                color: Colors.white,
+                size: responsive.setIconSize(9),
+              ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  void _showAddPriceSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return const AddPrice();
+      },
     );
   }
 }

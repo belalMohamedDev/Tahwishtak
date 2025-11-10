@@ -25,11 +25,9 @@ class HomeCubit extends Cubit<HomeState> {
       success: (dataResponse) async {
         _getTodayActivities = dataResponse.data!;
 
-        print(dataResponse.data!.currentBalance);
         emit(HomeState.getTodayActivitiesSuccess(dataResponse.data!));
       },
       failure: (error) {
-        print(error.message);
         emit(HomeState.getTodayActivitiesError(error));
       },
     );
