@@ -2,11 +2,16 @@ import 'package:tahwishtak/core/network/api/app_api.dart';
 import 'package:tahwishtak/core/network/apiResult/api_reuslt.dart';
 import 'package:tahwishtak/core/network/error_handler/api_error_handler.dart';
 import 'package:tahwishtak/feature/home/data/localDataSource/category_local_data_source.dart';
+import 'package:tahwishtak/feature/home/data/model/add_activity_model.dart';
 
 import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
+import 'package:tahwishtak/feature/home/data/request/add_activity.dart';
 
 abstract class HomeRepository {
   Future<ApiResult<TodayActivitiesModel>> getTodayActivitiesRepo();
+  Future<ApiResult<TodayActivitiesModel>> addActivityRepo(
+    AddActivityRequest activityRequest,
+  );
 }
 
 class HomeRepositoryImplement implements HomeRepository {
@@ -51,5 +56,33 @@ class HomeRepositoryImplement implements HomeRepository {
       final response = await _apiService.getTodayActivitiesService();
       await TodayActivitiesLocalDataSource.cacheTodayActivities(response, date);
     } catch (_) {}
+  }
+
+  @override
+  Future<ApiResult<TodayActivitiesModel>> addActivityRepo(
+    AddActivityRequest activityRequest,
+  ) async {
+    try {
+      final response = await _apiService.addActivityService(activityRequest);
+
+      if (response.status == true) {
+        final todayKey = DateTime.now().toString().substring(0, 10);
+
+        final updated = await _apiService.getTodayActivitiesService();
+
+        await TodayActivitiesLocalDataSource.cacheTodayActivities(
+          updated,
+          todayKey,
+        );
+
+        return ApiResult.success(updated);
+      }
+
+      return ApiResult.success(
+        TodayActivitiesModel(status: false, message: response.message),
+      );
+    } catch (error) {
+      return ApiResult.failure(ApiErrorHandler.handle(error));
+    }
   }
 }

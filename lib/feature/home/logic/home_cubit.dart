@@ -4,6 +4,7 @@ import 'package:tahwishtak/core/network/apiResult/api_reuslt.dart';
 import 'package:tahwishtak/core/network/failure/api_error_model.dart';
 import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
 import 'package:tahwishtak/feature/home/data/repository/home_repo.dart';
+import 'package:tahwishtak/feature/home/data/request/add_activity.dart';
 
 part 'home_state.dart';
 part 'home_cubit.freezed.dart';
@@ -29,6 +30,25 @@ class HomeCubit extends Cubit<HomeState> {
       },
       failure: (error) {
         emit(HomeState.getTodayActivitiesError(error));
+      },
+    );
+  }
+
+  Future<void> fetchddActivity(String type, double price) async {
+    emit(const HomeState.addActivityLoading());
+
+    final response = await _homeRepositoryImplement.addActivityRepo(
+      AddActivityRequest(type: type, price: price),
+    );
+
+    response.when(
+      success: (dataResponse) async {
+        _getTodayActivities = dataResponse.data!;
+
+        emit(HomeState.addActivitySuccess(dataResponse.data!));
+      },
+      failure: (error) {
+        emit(HomeState.addActivityError(error));
       },
     );
   }
