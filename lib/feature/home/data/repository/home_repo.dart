@@ -1,7 +1,7 @@
 import 'package:tahwishtak/core/network/api/app_api.dart';
 import 'package:tahwishtak/core/network/apiResult/api_reuslt.dart';
 import 'package:tahwishtak/core/network/error_handler/api_error_handler.dart';
-import 'package:tahwishtak/feature/home/data/localDataSource/category_local_data_source.dart';
+import 'package:tahwishtak/feature/home/data/localDataSource/today_activites_local_data_source.dart';
 
 import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
 import 'package:tahwishtak/feature/home/data/request/add_activity.dart';
@@ -57,6 +57,9 @@ class HomeRepositoryImplement implements HomeRepository {
   Future<void> _refreshFromServer(String date) async {
     try {
       final response = await _apiService.getTodayActivitiesService();
+
+      await TodayActivitiesLocalDataSource.clearOldCaches();
+
       await TodayActivitiesLocalDataSource.cacheTodayActivities(response, date);
     } catch (_) {}
   }
@@ -68,22 +71,16 @@ class HomeRepositoryImplement implements HomeRepository {
     try {
       final response = await _apiService.addActivityService(activityRequest);
 
-      if (response.status == true) {
-        final todayKey = DateTime.now().toString().substring(0, 10);
+      final todayKey = DateTime.now().toString().substring(0, 10);
 
-        final updated = await _apiService.getTodayActivitiesService();
+      await TodayActivitiesLocalDataSource.clearOldCaches();
 
-        await TodayActivitiesLocalDataSource.cacheTodayActivities(
-          updated,
-          todayKey,
-        );
-
-        return ApiResult.success(updated);
-      }
-
-      return ApiResult.success(
-        TodayActivitiesModel(status: false, message: response.message),
+      await TodayActivitiesLocalDataSource.cacheTodayActivities(
+        response,
+        todayKey,
       );
+
+      return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ApiErrorHandler.handle(error));
     }
@@ -95,6 +92,15 @@ class HomeRepositoryImplement implements HomeRepository {
   ) async {
     try {
       final response = await _apiService.startNewDayService(startNewDayRequest);
+
+      final todayKey = DateTime.now().toString().substring(0, 10);
+
+      await TodayActivitiesLocalDataSource.clearOldCaches();
+
+      await TodayActivitiesLocalDataSource.cacheTodayActivities(
+        response,
+        todayKey,
+      );
 
       return ApiResult.success(response);
     } catch (error) {

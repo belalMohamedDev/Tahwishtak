@@ -27,7 +27,7 @@ class HomeCubit extends Cubit<HomeState> {
       success: (dataResponse) async {
         _getTodayActivities = dataResponse.data!;
 
-        emit(HomeState.getTodayActivitiesSuccess(dataResponse.data!));
+        emit(HomeState.getTodayActivitiesSuccess(_getTodayActivities!));
       },
       failure: (error) {
         emit(HomeState.getTodayActivitiesError(error));
@@ -58,14 +58,14 @@ class HomeCubit extends Cubit<HomeState> {
     emit(const HomeState.startDayLoading());
 
     final response = await _homeRepositoryImplement.startNewDayRepo(
-      StartNewDayRequest(startingBalance: startingBalance),
+      StartNewDayRequest(amountToAdd: startingBalance),
     );
 
     response.when(
       success: (dataResponse) async {
-        // _getTodayActivities = dataResponse.data!;
+        _getTodayActivities = dataResponse.data!;
 
-        emit(HomeState.startDaySuccess(dataResponse.data!));
+        emit(HomeState.startDaySuccess(_getTodayActivities!));
       },
       failure: (error) {
         emit(HomeState.startDayError(error));

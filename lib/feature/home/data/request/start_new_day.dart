@@ -3,9 +3,9 @@ part 'start_new_day.g.dart';
 
 @JsonSerializable()
 class StartNewDayRequest {
-  StartNewDayRequest({required this.startingBalance});
+  StartNewDayRequest({required this.amountToAdd});
 
-  final double startingBalance;
+  final double amountToAdd;
 
   //from json
   factory StartNewDayRequest.fromJson(Map<String, dynamic> json) =>
