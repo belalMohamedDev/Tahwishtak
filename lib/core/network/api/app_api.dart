@@ -7,6 +7,7 @@ import 'package:tahwishtak/feature/Auth/data/model/response/auth_response.dart';
 import 'package:tahwishtak/feature/home/data/model/add_activity_model.dart';
 import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
 import 'package:tahwishtak/feature/home/data/request/add_activity.dart';
+import 'package:tahwishtak/feature/home/data/request/start_new_day.dart';
 
 part 'app_api.g.dart';
 
@@ -24,5 +25,12 @@ abstract class AppServiceClient {
   Future<TodayActivitiesModel> getTodayActivitiesService();
 
   @POST(ApiConstants.dailyActivity)
-  Future<AddActivityModel> addActivityService(@Body() AddActivityRequest addActivityRequest);
+  Future<AddActivityModel> addActivityService(
+    @Body() AddActivityRequest addActivityRequest,
+  );
+
+  @POST("${ApiConstants.dailyActivity}/newDays")
+  Future<TodayActivitiesModel> startNewDayService(
+    @Body() StartNewDayRequest startNewDayRequest,
+  );
 }

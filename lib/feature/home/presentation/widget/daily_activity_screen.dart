@@ -136,7 +136,7 @@ class _ActivityBottomSheetState extends State<ActivityBottomSheet> {
 
               ElevatedButton(
                 onPressed: () {
-                  context.read<HomeCubit>().fetchddActivity(
+                  context.read<HomeCubit>().fetchAddActivity(
                     selectedActivity!,
                     amount,
                   );

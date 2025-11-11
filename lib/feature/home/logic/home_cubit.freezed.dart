@@ -55,7 +55,7 @@ extension HomeStatePatterns on HomeState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( GetTodayActivitiesLoading value)?  getTodayActivitiesLoading,TResult Function( GetTodayActivitiesError value)?  getTodayActivitiesError,TResult Function( GetTodayActivitiesSuccess value)?  getTodayActivitiesSuccess,TResult Function( AddActivityLoading value)?  addActivityLoading,TResult Function( AddActivityError value)?  addActivityError,TResult Function( AddActivitySuccess value)?  addActivitySuccess,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( GetTodayActivitiesLoading value)?  getTodayActivitiesLoading,TResult Function( GetTodayActivitiesError value)?  getTodayActivitiesError,TResult Function( GetTodayActivitiesSuccess value)?  getTodayActivitiesSuccess,TResult Function( AddActivityLoading value)?  addActivityLoading,TResult Function( AddActivityError value)?  addActivityError,TResult Function( AddActivitySuccess value)?  addActivitySuccess,TResult Function( StartDayLoading value)?  startDayLoading,TResult Function( StartDayError value)?  startDayError,TResult Function( StartDaySuccess value)?  startDaySuccess,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
@@ -65,7 +65,10 @@ return getTodayActivitiesError(_that);case GetTodayActivitiesSuccess() when getT
 return getTodayActivitiesSuccess(_that);case AddActivityLoading() when addActivityLoading != null:
 return addActivityLoading(_that);case AddActivityError() when addActivityError != null:
 return addActivityError(_that);case AddActivitySuccess() when addActivitySuccess != null:
-return addActivitySuccess(_that);case _:
+return addActivitySuccess(_that);case StartDayLoading() when startDayLoading != null:
+return startDayLoading(_that);case StartDayError() when startDayError != null:
+return startDayError(_that);case StartDaySuccess() when startDaySuccess != null:
+return startDaySuccess(_that);case _:
   return orElse();
 
 }
@@ -83,7 +86,7 @@ return addActivitySuccess(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( GetTodayActivitiesLoading value)  getTodayActivitiesLoading,required TResult Function( GetTodayActivitiesError value)  getTodayActivitiesError,required TResult Function( GetTodayActivitiesSuccess value)  getTodayActivitiesSuccess,required TResult Function( AddActivityLoading value)  addActivityLoading,required TResult Function( AddActivityError value)  addActivityError,required TResult Function( AddActivitySuccess value)  addActivitySuccess,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( GetTodayActivitiesLoading value)  getTodayActivitiesLoading,required TResult Function( GetTodayActivitiesError value)  getTodayActivitiesError,required TResult Function( GetTodayActivitiesSuccess value)  getTodayActivitiesSuccess,required TResult Function( AddActivityLoading value)  addActivityLoading,required TResult Function( AddActivityError value)  addActivityError,required TResult Function( AddActivitySuccess value)  addActivitySuccess,required TResult Function( StartDayLoading value)  startDayLoading,required TResult Function( StartDayError value)  startDayError,required TResult Function( StartDaySuccess value)  startDaySuccess,}){
 final _that = this;
 switch (_that) {
 case _Initial():
@@ -93,7 +96,10 @@ return getTodayActivitiesError(_that);case GetTodayActivitiesSuccess():
 return getTodayActivitiesSuccess(_that);case AddActivityLoading():
 return addActivityLoading(_that);case AddActivityError():
 return addActivityError(_that);case AddActivitySuccess():
-return addActivitySuccess(_that);case _:
+return addActivitySuccess(_that);case StartDayLoading():
+return startDayLoading(_that);case StartDayError():
+return startDayError(_that);case StartDaySuccess():
+return startDaySuccess(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -110,7 +116,7 @@ return addActivitySuccess(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( GetTodayActivitiesLoading value)?  getTodayActivitiesLoading,TResult? Function( GetTodayActivitiesError value)?  getTodayActivitiesError,TResult? Function( GetTodayActivitiesSuccess value)?  getTodayActivitiesSuccess,TResult? Function( AddActivityLoading value)?  addActivityLoading,TResult? Function( AddActivityError value)?  addActivityError,TResult? Function( AddActivitySuccess value)?  addActivitySuccess,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( GetTodayActivitiesLoading value)?  getTodayActivitiesLoading,TResult? Function( GetTodayActivitiesError value)?  getTodayActivitiesError,TResult? Function( GetTodayActivitiesSuccess value)?  getTodayActivitiesSuccess,TResult? Function( AddActivityLoading value)?  addActivityLoading,TResult? Function( AddActivityError value)?  addActivityError,TResult? Function( AddActivitySuccess value)?  addActivitySuccess,TResult? Function( StartDayLoading value)?  startDayLoading,TResult? Function( StartDayError value)?  startDayError,TResult? Function( StartDaySuccess value)?  startDaySuccess,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
@@ -120,7 +126,10 @@ return getTodayActivitiesError(_that);case GetTodayActivitiesSuccess() when getT
 return getTodayActivitiesSuccess(_that);case AddActivityLoading() when addActivityLoading != null:
 return addActivityLoading(_that);case AddActivityError() when addActivityError != null:
 return addActivityError(_that);case AddActivitySuccess() when addActivitySuccess != null:
-return addActivitySuccess(_that);case _:
+return addActivitySuccess(_that);case StartDayLoading() when startDayLoading != null:
+return startDayLoading(_that);case StartDayError() when startDayError != null:
+return startDayError(_that);case StartDaySuccess() when startDaySuccess != null:
+return startDaySuccess(_that);case _:
   return null;
 
 }
@@ -137,7 +146,7 @@ return addActivitySuccess(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  getTodayActivitiesLoading,TResult Function( ApiErrorModel apiErrorModel)?  getTodayActivitiesError,TResult Function( TodayActivitiesData data)?  getTodayActivitiesSuccess,TResult Function()?  addActivityLoading,TResult Function( ApiErrorModel apiErrorModel)?  addActivityError,TResult Function( TodayActivitiesData data)?  addActivitySuccess,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  getTodayActivitiesLoading,TResult Function( ApiErrorModel apiErrorModel)?  getTodayActivitiesError,TResult Function( TodayActivitiesData data)?  getTodayActivitiesSuccess,TResult Function()?  addActivityLoading,TResult Function( ApiErrorModel apiErrorModel)?  addActivityError,TResult Function( TodayActivitiesData data)?  addActivitySuccess,TResult Function()?  startDayLoading,TResult Function( ApiErrorModel apiErrorModel)?  startDayError,TResult Function( TodayActivitiesData data)?  startDaySuccess,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case GetTodayActivitiesLoading() when getTodayActivitiesLoading != null:
@@ -146,7 +155,10 @@ return getTodayActivitiesError(_that.apiErrorModel);case GetTodayActivitiesSucce
 return getTodayActivitiesSuccess(_that.data);case AddActivityLoading() when addActivityLoading != null:
 return addActivityLoading();case AddActivityError() when addActivityError != null:
 return addActivityError(_that.apiErrorModel);case AddActivitySuccess() when addActivitySuccess != null:
-return addActivitySuccess(_that.data);case _:
+return addActivitySuccess(_that.data);case StartDayLoading() when startDayLoading != null:
+return startDayLoading();case StartDayError() when startDayError != null:
+return startDayError(_that.apiErrorModel);case StartDaySuccess() when startDaySuccess != null:
+return startDaySuccess(_that.data);case _:
   return orElse();
 
 }
@@ -164,7 +176,7 @@ return addActivitySuccess(_that.data);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  getTodayActivitiesLoading,required TResult Function( ApiErrorModel apiErrorModel)  getTodayActivitiesError,required TResult Function( TodayActivitiesData data)  getTodayActivitiesSuccess,required TResult Function()  addActivityLoading,required TResult Function( ApiErrorModel apiErrorModel)  addActivityError,required TResult Function( TodayActivitiesData data)  addActivitySuccess,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  getTodayActivitiesLoading,required TResult Function( ApiErrorModel apiErrorModel)  getTodayActivitiesError,required TResult Function( TodayActivitiesData data)  getTodayActivitiesSuccess,required TResult Function()  addActivityLoading,required TResult Function( ApiErrorModel apiErrorModel)  addActivityError,required TResult Function( TodayActivitiesData data)  addActivitySuccess,required TResult Function()  startDayLoading,required TResult Function( ApiErrorModel apiErrorModel)  startDayError,required TResult Function( TodayActivitiesData data)  startDaySuccess,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case GetTodayActivitiesLoading():
@@ -173,7 +185,10 @@ return getTodayActivitiesError(_that.apiErrorModel);case GetTodayActivitiesSucce
 return getTodayActivitiesSuccess(_that.data);case AddActivityLoading():
 return addActivityLoading();case AddActivityError():
 return addActivityError(_that.apiErrorModel);case AddActivitySuccess():
-return addActivitySuccess(_that.data);case _:
+return addActivitySuccess(_that.data);case StartDayLoading():
+return startDayLoading();case StartDayError():
+return startDayError(_that.apiErrorModel);case StartDaySuccess():
+return startDaySuccess(_that.data);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -190,7 +205,7 @@ return addActivitySuccess(_that.data);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  getTodayActivitiesLoading,TResult? Function( ApiErrorModel apiErrorModel)?  getTodayActivitiesError,TResult? Function( TodayActivitiesData data)?  getTodayActivitiesSuccess,TResult? Function()?  addActivityLoading,TResult? Function( ApiErrorModel apiErrorModel)?  addActivityError,TResult? Function( TodayActivitiesData data)?  addActivitySuccess,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  getTodayActivitiesLoading,TResult? Function( ApiErrorModel apiErrorModel)?  getTodayActivitiesError,TResult? Function( TodayActivitiesData data)?  getTodayActivitiesSuccess,TResult? Function()?  addActivityLoading,TResult? Function( ApiErrorModel apiErrorModel)?  addActivityError,TResult? Function( TodayActivitiesData data)?  addActivitySuccess,TResult? Function()?  startDayLoading,TResult? Function( ApiErrorModel apiErrorModel)?  startDayError,TResult? Function( TodayActivitiesData data)?  startDaySuccess,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case GetTodayActivitiesLoading() when getTodayActivitiesLoading != null:
@@ -199,7 +214,10 @@ return getTodayActivitiesError(_that.apiErrorModel);case GetTodayActivitiesSucce
 return getTodayActivitiesSuccess(_that.data);case AddActivityLoading() when addActivityLoading != null:
 return addActivityLoading();case AddActivityError() when addActivityError != null:
 return addActivityError(_that.apiErrorModel);case AddActivitySuccess() when addActivitySuccess != null:
-return addActivitySuccess(_that.data);case _:
+return addActivitySuccess(_that.data);case StartDayLoading() when startDayLoading != null:
+return startDayLoading();case StartDayError() when startDayError != null:
+return startDayError(_that.apiErrorModel);case StartDaySuccess() when startDaySuccess != null:
+return startDaySuccess(_that.data);case _:
   return null;
 
 }
@@ -559,6 +577,170 @@ class _$AddActivitySuccessCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? data = null,}) {
   return _then(AddActivitySuccess(
+null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as TodayActivitiesData,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class StartDayLoading implements HomeState {
+  const StartDayLoading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StartDayLoading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HomeState.startDayLoading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class StartDayError implements HomeState {
+  const StartDayError(this.apiErrorModel);
+  
+
+ final  ApiErrorModel apiErrorModel;
+
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StartDayErrorCopyWith<StartDayError> get copyWith => _$StartDayErrorCopyWithImpl<StartDayError>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StartDayError&&(identical(other.apiErrorModel, apiErrorModel) || other.apiErrorModel == apiErrorModel));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,apiErrorModel);
+
+@override
+String toString() {
+  return 'HomeState.startDayError(apiErrorModel: $apiErrorModel)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $StartDayErrorCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
+  factory $StartDayErrorCopyWith(StartDayError value, $Res Function(StartDayError) _then) = _$StartDayErrorCopyWithImpl;
+@useResult
+$Res call({
+ ApiErrorModel apiErrorModel
+});
+
+
+
+
+}
+/// @nodoc
+class _$StartDayErrorCopyWithImpl<$Res>
+    implements $StartDayErrorCopyWith<$Res> {
+  _$StartDayErrorCopyWithImpl(this._self, this._then);
+
+  final StartDayError _self;
+  final $Res Function(StartDayError) _then;
+
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? apiErrorModel = null,}) {
+  return _then(StartDayError(
+null == apiErrorModel ? _self.apiErrorModel : apiErrorModel // ignore: cast_nullable_to_non_nullable
+as ApiErrorModel,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class StartDaySuccess implements HomeState {
+  const StartDaySuccess(this.data);
+  
+
+ final  TodayActivitiesData data;
+
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$StartDaySuccessCopyWith<StartDaySuccess> get copyWith => _$StartDaySuccessCopyWithImpl<StartDaySuccess>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StartDaySuccess&&(identical(other.data, data) || other.data == data));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,data);
+
+@override
+String toString() {
+  return 'HomeState.startDaySuccess(data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $StartDaySuccessCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
+  factory $StartDaySuccessCopyWith(StartDaySuccess value, $Res Function(StartDaySuccess) _then) = _$StartDaySuccessCopyWithImpl;
+@useResult
+$Res call({
+ TodayActivitiesData data
+});
+
+
+
+
+}
+/// @nodoc
+class _$StartDaySuccessCopyWithImpl<$Res>
+    implements $StartDaySuccessCopyWith<$Res> {
+  _$StartDaySuccessCopyWithImpl(this._self, this._then);
+
+  final StartDaySuccess _self;
+  final $Res Function(StartDaySuccess) _then;
+
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = null,}) {
+  return _then(StartDaySuccess(
 null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
 as TodayActivitiesData,
   ));

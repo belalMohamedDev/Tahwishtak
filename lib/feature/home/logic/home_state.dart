@@ -19,4 +19,13 @@ class HomeState with _$HomeState {
 
   const factory HomeState.addActivitySuccess(TodayActivitiesData data) =
       AddActivitySuccess;
+
+
+        const factory HomeState.startDayLoading() =
+      StartDayLoading;
+  const factory HomeState.startDayError(ApiErrorModel apiErrorModel) =
+      StartDayError;
+
+  const factory HomeState.startDaySuccess(TodayActivitiesData data) =
+      StartDaySuccess;
 }
