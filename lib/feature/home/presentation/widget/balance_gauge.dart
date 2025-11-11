@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
+import 'package:tahwishtak/core/application/di.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
+import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/add_price.dart';
 
 class BalanceGaugeWidget extends StatelessWidget {
@@ -126,7 +129,10 @@ class BalanceGaugeWidget extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) {
-        return const AddPrice();
+        return BlocProvider.value(
+          value: instance<HomeCubit>(),
+          child: const AddPrice(),
+        );
       },
     );
   }
