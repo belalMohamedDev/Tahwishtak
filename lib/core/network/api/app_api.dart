@@ -4,6 +4,8 @@ import 'package:tahwishtak/core/network/api_constant/api_constant.dart';
 import 'package:tahwishtak/feature/Auth/data/model/request/login/login_request.dart';
 import 'package:tahwishtak/feature/Auth/data/model/request/register/register_request.dart';
 import 'package:tahwishtak/feature/Auth/data/model/response/auth_response.dart';
+import 'package:tahwishtak/feature/Budget/data/model/requestBody/monthly_stats_request.dart';
+import 'package:tahwishtak/feature/Budget/data/model/response/monthly_stats_model.dart';
 import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
 import 'package:tahwishtak/feature/home/data/request/add_activity.dart';
 import 'package:tahwishtak/feature/home/data/request/start_new_day.dart';
@@ -31,5 +33,10 @@ abstract class AppServiceClient {
   @POST("${ApiConstants.dailyActivity}/newDays")
   Future<TodayActivitiesModel> startNewDayService(
     @Body() StartNewDayRequest startNewDayRequest,
+  );
+
+  @POST("${ApiConstants.dailyActivity}/monthlyStats")
+  Future<GetMonthlyStatsModel> getMonthlyStatsService(
+    @Queries() MonthlyStatsRequest monthlyStatsRequest,
   );
 }
