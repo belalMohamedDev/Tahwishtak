@@ -3,7 +3,7 @@ part 'monthly_stats_request.g.dart';
 
 @JsonSerializable()
 class MonthlyStatsRequest {
-  MonthlyStatsRequest({required this.year, required this.month});
+  MonthlyStatsRequest({this.year, this.month});
 
   final int? year;
   final int? month;

@@ -5,6 +5,7 @@ import 'package:tahwishtak/core/network/failure/api_error_model.dart';
 import 'package:tahwishtak/feature/Budget/data/model/requestBody/monthly_stats_request.dart';
 import 'package:tahwishtak/feature/Budget/data/model/response/monthly_stats_model.dart';
 import 'package:tahwishtak/feature/Budget/data/repository/monthly_stats_repo.dart';
+import 'package:tahwishtak/feature/Budget/presentation/widget/get_activity_color.dart';
 
 part 'monthly_stats_state.dart';
 part 'monthly_stats_cubit.freezed.dart';
@@ -35,5 +36,16 @@ class MonthlyStatsCubit extends Cubit<MonthlyStatsState> {
         emit(MonthlyStatsState.getMonthlyStatsError(error));
       },
     );
+  }
+
+  List<Map<String, dynamic>> convertToChartData(List<GetMonthlyStatsData> apiData) {
+    return apiData.map((item) {
+      return {
+        "category": item.category,
+        "amount": item.amount,
+        "percent": item.percent,
+        "color": getActivityColor(item.category),
+      };
+    }).toList();
   }
 }

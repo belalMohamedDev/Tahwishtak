@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:sliding_clipped_nav_bar/sliding_clipped_nav_bar.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
+import 'package:tahwishtak/feature/Budget/logic/monthly_stats_cubit.dart';
 import 'package:tahwishtak/feature/Budget/presentation/screen/budget_screen.dart';
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/home/presentation/screen/home_screen.dart';
@@ -23,7 +24,8 @@ class _NativeBottomNavBarState extends State<NativeBottomNavBar> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: selectedIndex);
-    context.read<HomeCubit>().fetchGetTodayActivities();
+     context.read<HomeCubit>().fetchGetTodayActivities();
+    context.read<MonthlyStatsCubit>().fetchGetMonthlyStats();
   }
 
   void onButtonPressed(int index) {

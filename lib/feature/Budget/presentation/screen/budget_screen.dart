@@ -1,6 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
+import 'package:tahwishtak/feature/Budget/logic/monthly_stats_cubit.dart';
+import 'package:tahwishtak/feature/Budget/presentation/widget/get_activity_color.dart';
 
 class CustomDonutChart extends StatefulWidget {
   const CustomDonutChart({super.key});
@@ -30,127 +33,120 @@ class _CustomDonutChartState extends State<CustomDonutChart>
 
   @override
   Widget build(BuildContext context) {
-    final data = [
-      {
-        "category": "معاملات بنكية",
-        "color": Colors.teal[800]!,
-        "percent": 0.39,
-        "amount": 250,
-      },
-      {
-        "category": "التسوق",
-        "color": Colors.green[300]!,
-        "percent": 0.24,
-        "amount": 240,
-      },
-      {
-        "category": "مواصلات",
-        "color": Colors.orange[300]!,
-        "percent": 0.15,
-        "amount": 150,
-      },
-      {
-        "category": "شراء مأكولات",
-        "color": Colors.yellow[600]!,
-        "percent": 0.11,
-        "amount": 110,
-      },
-      {
-        "category": "الحيوانات",
-        "color": Colors.teal[300]!,
-        "percent": 0.11,
-        "amount": 100,
-      },
-    ];
-
     final responsive = ResponsiveUtils(context);
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text("الميزانية اليومية"),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        foregroundColor: Colors.black,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: responsive.setPadding(top: 5, right: 4),
-            child: Stack(
-              children: [
-                AnimatedBuilder(
-                  animation: _controller,
-                  builder: (context, child) {
-                    return CustomPaint(
-                      size: const Size(250, 250),
-                      painter: DonutPainter(
-                        data,
-                        animationValue: _controller.value,
+    return BlocBuilder<MonthlyStatsCubit, MonthlyStatsState>(
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            title: const Text("الميزانية الشهرية"),
+            centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            foregroundColor: Colors.black,
+          ),
+          body: Column(
+            children: [
+              Padding(
+                padding: responsive.setPadding(top: 5, left: 7),
+                child: Stack(
+                  children: [
+                    AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, child) {
+                        final model = context
+                            .watch<MonthlyStatsCubit>()
+                            .getMonthlyStatsModel;
+
+                        final apiData = model?.data ?? [];
+
+                        final chartData = context
+                            .read<MonthlyStatsCubit>()
+                            .convertToChartData(apiData);
+
+                        return CustomPaint(
+                          size: const Size(250, 250),
+                          painter: DonutPainter(
+                            chartData,
+                            animationValue: _controller.value,
+                          ),
+                        );
+                      },
+                    ),
+                    Positioned(
+                      top: responsive.setHeight(11),
+                      left: responsive.setWidth(25),
+                      child: Column(
+                        children: [
+                          Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Text(
+                              "${context.read<MonthlyStatsCubit>().getMonthlyStatsModel?.totalSpentInMonth ?? 0} ج",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "مصروفات",
+                            style: TextStyle(color: Colors.grey, fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: responsive.setHeight(8)),
+              Expanded(
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  itemCount:
+                      context
+                          .read<MonthlyStatsCubit>()
+                          .getMonthlyStatsModel
+                          ?.data
+                          ?.length ??
+                      0,
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemBuilder: (context, index) {
+                    final item = context
+                        .read<MonthlyStatsCubit>()
+                        .getMonthlyStatsModel!
+                        .data![index];
+                    return Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 10,
+                                height: 15,
+                                decoration: BoxDecoration(
+                                  color: getActivityColor(item.category),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              const SizedBox(width: 15),
+                              Text("${item.category}"),
+                            ],
+                          ),
+                          Text("${item.amount} ج"),
+                        ],
                       ),
                     );
                   },
                 ),
-                Positioned(
-                  top: responsive.setHeight(11),
-                  left: responsive.setWidth(25),
-                  child: Column(
-                    children: const [
-                      Text(
-                        "1000 ج",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "مصروفات",
-                        style: TextStyle(color: Colors.grey, fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          SizedBox(height: responsive.setHeight(8)),
-          Expanded(
-            child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              itemCount: data.length,
-              separatorBuilder: (_, __) => const Divider(),
-              itemBuilder: (context, index) {
-                final item = data[index];
-                return Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 10,
-                            height: 15,
-                            decoration: BoxDecoration(
-                              color: item["color"] as Color?,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 15),
-                          Text(item["category"] as String),
-                        ],
-                      ),
-                      Text("${item["amount"]} ج"),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

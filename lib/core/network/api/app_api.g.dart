@@ -166,15 +166,15 @@ class _AppServiceClient implements AppServiceClient {
 
   @override
   Future<GetMonthlyStatsModel> getMonthlyStatsService(
-    MonthlyStatsRequest monthlyStatsRequest,
+    Map<String, dynamic> query,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    queryParameters.addAll(monthlyStatsRequest.toJson());
+    queryParameters.addAll(query);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GetMonthlyStatsModel>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
             '/v1/api/dailyActivity/monthlyStats',

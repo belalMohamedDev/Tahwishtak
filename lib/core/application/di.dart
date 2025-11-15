@@ -8,6 +8,8 @@ import 'package:tahwishtak/core/network/dio_factory/dio_factory.dart';
 import 'package:tahwishtak/feature/Auth/data/repository/auth_repo.dart';
 import 'package:tahwishtak/feature/Auth/logic/SignUpBloc/sign_up_bloc.dart';
 import 'package:tahwishtak/feature/Auth/logic/loginBloc/login_bloc.dart';
+import 'package:tahwishtak/feature/Budget/data/repository/monthly_stats_repo.dart';
+import 'package:tahwishtak/feature/Budget/logic/monthly_stats_cubit.dart';
 import 'package:tahwishtak/feature/home/data/repository/home_repo.dart';
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/onBoarding/cubit/on_boarding_cubit.dart';
@@ -20,6 +22,7 @@ Future<void> initAppModule() async {
     _initOnBoarding(),
     _initAuth(),
     _initHome(),
+    _initMonthlyStats(),
   ]);
 }
 
@@ -52,4 +55,13 @@ Future<void> _initHome() async {
     () => HomeRepositoryImplement(instance()),
   );
   instance.registerLazySingleton<HomeCubit>(() => HomeCubit(instance()));
+}
+
+Future<void> _initMonthlyStats() async {
+  instance.registerLazySingleton<MonthlyStatsRepositoryImplement>(
+    () => MonthlyStatsRepositoryImplement(instance()),
+  );
+  instance.registerLazySingleton<MonthlyStatsCubit>(
+    () => MonthlyStatsCubit(instance()),
+  );
 }
