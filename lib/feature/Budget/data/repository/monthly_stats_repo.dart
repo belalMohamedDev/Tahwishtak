@@ -21,11 +21,12 @@ class MonthlyStatsRepositoryImplement implements MonthlyStatsRepository {
   Future<ApiResult<GetMonthlyStatsModel>> getMonthlyStatsRepo(
     MonthlyStatsRequest monthlyStatsRequest,
   ) async {
-    final todayKey = DateTime.now().toString().substring(0, 10);
 
     try {
       final cachedData =
-          await MonthlyBudgetLocalDataSource.getCachedMonthlyBudget(todayKey);
+          await MonthlyBudgetLocalDataSource.getCachedMonthlyBudget(
+            monthlyStatsRequest,
+          );
 
       final query = cleanQuery({
         "year": monthlyStatsRequest.year,
@@ -39,14 +40,17 @@ class MonthlyStatsRepositoryImplement implements MonthlyStatsRepository {
           totalSpentInMonth: cachedData.totalSpentInMonth,
           data: cachedData.data,
         );
-        _refreshFromServer(todayKey, query);
+        _refreshFromServer(monthlyStatsRequest, query);
 
         return ApiResult.success(model);
       }
 
       final response = await _apiService.getMonthlyStatsService(query);
 
-      await MonthlyBudgetLocalDataSource.cacheMonthlyBudget(response, todayKey);
+      await MonthlyBudgetLocalDataSource.cacheMonthlyBudget(
+        response,
+        monthlyStatsRequest,
+      );
       return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ApiErrorHandler.handle(error));
@@ -54,7 +58,7 @@ class MonthlyStatsRepositoryImplement implements MonthlyStatsRepository {
   }
 
   Future<void> _refreshFromServer(
-    String date,
+    MonthlyStatsRequest monthlyStatsRequest,
     Map<String, dynamic> query,
   ) async {
     try {
@@ -62,7 +66,10 @@ class MonthlyStatsRepositoryImplement implements MonthlyStatsRepository {
 
       await MonthlyBudgetLocalDataSource.clearOldCaches();
 
-      await MonthlyBudgetLocalDataSource.cacheMonthlyBudget(response, date);
+      await MonthlyBudgetLocalDataSource.cacheMonthlyBudget(
+        response,
+        monthlyStatsRequest,
+      );
     } catch (_) {}
   }
 }

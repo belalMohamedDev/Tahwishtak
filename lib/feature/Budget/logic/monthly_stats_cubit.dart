@@ -37,9 +37,11 @@ class MonthlyStatsCubit extends Cubit<MonthlyStatsState> {
 
     response.when(
       success: (dataResponse) async {
-        _getMonthlyStatsModel = dataResponse;
+        if (dataResponse.data!.isNotEmpty) {
+          _getMonthlyStatsModel = dataResponse;
 
-        emit(MonthlyStatsState.getMonthlyStatsSuccess(dataResponse));
+          emit(MonthlyStatsState.getMonthlyStatsSuccess(dataResponse));
+        }
       },
       failure: (error) {
         emit(MonthlyStatsState.getMonthlyStatsError(error));

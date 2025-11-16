@@ -1,9 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
 import 'package:tahwishtak/feature/Budget/logic/monthly_stats_cubit.dart';
 import 'package:tahwishtak/feature/Budget/presentation/widget/get_activity_color.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class CustomDonutChart extends StatefulWidget {
   const CustomDonutChart({super.key});
@@ -49,7 +52,45 @@ class _CustomDonutChartState extends State<CustomDonutChart>
           body: Column(
             children: [
               Padding(
-                padding: responsive.setPadding(top: 5, left: 7),
+                padding: responsive.setPadding(left: 65),
+                child: IconButton(
+                  onPressed: () async {
+                    final selectedDate = await showMonthPicker(
+                      monthPickerDialogSettings: MonthPickerDialogSettings(
+                        headerSettings: PickerHeaderSettings(
+                          headerBackgroundColor: Colors.teal[800],
+                        ),
+                        dialogSettings: PickerDialogSettings(
+                          dialogBackgroundColor: ColorManger.bGColor,
+                        ),
+                      ),
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime.now(),
+                    );
+
+                    if (selectedDate != null) {
+                      final month = selectedDate.month;
+                      final year = selectedDate.year;
+
+                  
+                      context.read<MonthlyStatsCubit>().fetchGetMonthlyStats(
+                        month: month,
+                        year: year,
+                      );
+                    }
+                  },
+                  icon: Icon(
+                    IconlyBold.calendar,
+                    color: Colors.teal[800],
+                    size: responsive.setIconSize(8),
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: responsive.setPadding(left: 7),
                 child: Stack(
                   children: [
                     AnimatedBuilder(
@@ -100,48 +141,63 @@ class _CustomDonutChartState extends State<CustomDonutChart>
                   ],
                 ),
               ),
-              SizedBox(height: responsive.setHeight(8)),
+
+              SizedBox(height: responsive.setHeight(6)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: const Divider(),
+              ),
               Expanded(
-                child: ListView.separated(
+                child: ListView.builder(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   itemCount:
-                      context
-                          .read<MonthlyStatsCubit>()
-                          .getMonthlyStatsModel
-                          ?.data
-                          ?.length ??
-                      0,
-                  separatorBuilder: (_, __) => const Divider(),
+                      (context
+                                  .read<MonthlyStatsCubit>()
+                                  .getMonthlyStatsModel
+                                  ?.data
+                                  ?.length ??
+                              0) *
+                          2 -
+                      1 +
+                      1,
                   itemBuilder: (context, index) {
-                    final item = context
-                        .read<MonthlyStatsCubit>()
-                        .getMonthlyStatsModel!
-                        .data![index];
-                    return Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                width: 10,
-                                height: 15,
-                                decoration: BoxDecoration(
-                                  color: getActivityColor(item.category),
-                                  shape: BoxShape.circle,
-                                ),
+                    final dataList =
+                        context
+                            .read<MonthlyStatsCubit>()
+                            .getMonthlyStatsModel
+                            ?.data ??
+                        [];
+
+                    if (index.isEven) {
+                      final item = dataList[index ~/ 2];
+                      return Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 10,
+                              height: 15,
+                              decoration: BoxDecoration(
+                                color: getActivityColor(item.category),
+                                shape: BoxShape.circle,
                               ),
-                              const SizedBox(width: 15),
-                              Text("${item.category}"),
-                            ],
-                          ),
-                          Text("${item.amount} ج"),
-                        ],
-                      ),
-                    );
+                            ),
+                            const SizedBox(width: 15),
+                            Text("${item.category}"),
+                            Spacer(),
+                            Text("${item.amount} ج"),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return const Divider();
+                    }
                   },
                 ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: const Divider(), // Divider آخر
               ),
             ],
           ),
