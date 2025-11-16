@@ -6,6 +6,7 @@ import 'package:tahwishtak/feature/home/data/localDataSource/today_activites_loc
 import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
 import 'package:tahwishtak/feature/home/data/request/add_activity.dart';
 import 'package:tahwishtak/feature/home/data/request/start_new_day.dart';
+import 'package:tahwishtak/feature/home/logic/activity_events.dart';
 
 abstract class HomeRepository {
   Future<ApiResult<TodayActivitiesModel>> getTodayActivitiesRepo();
@@ -80,6 +81,8 @@ class HomeRepositoryImplement implements HomeRepository {
         todayKey,
       );
 
+      ActivityEvents().dispatch("today_updated");
+
       return ApiResult.success(response);
     } catch (error) {
       return ApiResult.failure(ApiErrorHandler.handle(error));
@@ -101,6 +104,8 @@ class HomeRepositoryImplement implements HomeRepository {
         response,
         todayKey,
       );
+
+      ActivityEvents().dispatch("today_updated");
 
       return ApiResult.success(response);
     } catch (error) {

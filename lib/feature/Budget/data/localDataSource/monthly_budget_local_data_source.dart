@@ -41,11 +41,6 @@ class MonthlyBudgetLocalDataSource {
 
   static Future<void> clearOldCaches() async {
     final box = await Hive.openBox(_boxName);
-    final todayKey = DateTime.now().toString().substring(0, 10);
-
-    final keysToDelete = box.keys.where((key) => key != todayKey).toList();
-    for (var key in keysToDelete) {
-      await box.delete(key);
-    }
+    await box.clear();
   }
 }
