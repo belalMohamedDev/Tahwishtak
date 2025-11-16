@@ -69,7 +69,7 @@ class _NativeBottomNavBarState extends State<NativeBottomNavBar> {
 
         barItems: <BarItem>[
           BarItem(icon: IconlyBold.setting, title: 'الاعدادات'),
-          BarItem(icon: Icons.bar_chart_sharp, title: 'التحليل الشهرى'),
+          // BarItem(icon: Icons.bar_chart_sharp, title: 'التحليل الشهرى'),
           BarItem(icon: IconlyBold.chart, title: 'تقسيم الميزانية'),
           BarItem(icon: IconlyBold.home, title: 'الصفحة الرئيسية         '),
         ],
@@ -83,10 +83,10 @@ List<Widget> _listOfWidget = <Widget>[
     alignment: Alignment.center,
     child: const Icon(IconlyBold.home, size: 56, color: Colors.green),
   ),
-  Container(
-    alignment: Alignment.center,
-    child: const Icon(IconlyBold.search, size: 56, color: Colors.brown),
-  ),
+  // Container(
+  //   alignment: Alignment.center,
+  //   child: const Icon(IconlyBold.search, size: 56, color: Colors.brown),
+  // ),
   CustomDonutChart(),
   HomePage(),
 ];

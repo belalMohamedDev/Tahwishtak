@@ -21,7 +21,6 @@ class MonthlyStatsRepositoryImplement implements MonthlyStatsRepository {
   Future<ApiResult<GetMonthlyStatsModel>> getMonthlyStatsRepo(
     MonthlyStatsRequest monthlyStatsRequest,
   ) async {
-
     try {
       final cachedData =
           await MonthlyBudgetLocalDataSource.getCachedMonthlyBudget(
@@ -38,6 +37,8 @@ class MonthlyStatsRepositoryImplement implements MonthlyStatsRepository {
           status: true,
           message: 'بيانات مخزنة محليًا',
           totalSpentInMonth: cachedData.totalSpentInMonth,
+          totalCurrentBalance: cachedData.totalCurrentBalance,
+          totalStartingBalance: cachedData.totalStartingBalance,
           data: cachedData.data,
         );
         _refreshFromServer(monthlyStatsRequest, query);

@@ -74,7 +74,6 @@ class _CustomDonutChartState extends State<CustomDonutChart>
                       final month = selectedDate.month;
                       final year = selectedDate.year;
 
-                  
                       context.read<MonthlyStatsCubit>().fetchGetMonthlyStats(
                         month: month,
                         year: year,
@@ -142,7 +141,7 @@ class _CustomDonutChartState extends State<CustomDonutChart>
                 ),
               ),
 
-              SizedBox(height: responsive.setHeight(6)),
+              SizedBox(height: responsive.setHeight(4)),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: const Divider(),
@@ -159,7 +158,8 @@ class _CustomDonutChartState extends State<CustomDonutChart>
                               0) *
                           2 -
                       1 +
-                      1,
+                      1 +
+                      2,
                   itemBuilder: (context, index) {
                     final dataList =
                         context
@@ -167,6 +167,57 @@ class _CustomDonutChartState extends State<CustomDonutChart>
                             .getMonthlyStatsModel
                             ?.data ??
                         [];
+
+                    if (index == (dataList.length * 2 - 1 + 1)) {
+                      final model = context
+                          .read<MonthlyStatsCubit>()
+                          .getMonthlyStatsModel!;
+                      return Column(
+                        children: [
+                          Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 10,
+                                      height: 15,
+                                      decoration: BoxDecoration(
+                                        color: Colors.indigo[800],
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 15),
+                                    Text("المبلغ المدخر"),
+                                    Spacer(),
+                                    Text("${model.totalStartingBalance} ج"),
+                                  ],
+                                ),
+                                const Divider(),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 10,
+                                      height: 15,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[800],
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 15),
+                                    Text("الرصيد المتبقى "),
+                                    Spacer(),
+                                    Text("${model.totalCurrentBalance} ج"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    }
 
                     if (index.isEven) {
                       final item = dataList[index ~/ 2];
@@ -184,7 +235,7 @@ class _CustomDonutChartState extends State<CustomDonutChart>
                             ),
                             const SizedBox(width: 15),
                             Text("${item.category}"),
-                            Spacer(),
+                            const Spacer(),
                             Text("${item.amount} ج"),
                           ],
                         ),
@@ -194,10 +245,6 @@ class _CustomDonutChartState extends State<CustomDonutChart>
                     }
                   },
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: const Divider(), // Divider آخر
               ),
             ],
           ),

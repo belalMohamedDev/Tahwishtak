@@ -11,7 +11,9 @@ GetMonthlyStatsModel _$GetMonthlyStatsModelFromJson(
 ) => GetMonthlyStatsModel(
   status: json['status'] as bool?,
   message: json['message'] as String?,
-  totalSpentInMonth: (json['totalSpentInMonth'] as num?)?.toInt(),
+  totalSpentInMonth: (json['totalSpentInMonth'] as num?)?.toDouble(),
+  totalCurrentBalance: (json['totalCurrentBalance'] as num?)?.toDouble(),
+  totalStartingBalance: (json['totalStartingBalance'] as num?)?.toDouble(),
   data: (json['data'] as List<dynamic>?)
       ?.map((e) => GetMonthlyStatsData.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -22,6 +24,8 @@ Map<String, dynamic> _$GetMonthlyStatsModelToJson(
 ) => <String, dynamic>{
   'status': instance.status,
   'message': instance.message,
+  'totalStartingBalance': instance.totalStartingBalance,
+  'totalCurrentBalance': instance.totalCurrentBalance,
   'totalSpentInMonth': instance.totalSpentInMonth,
   'data': instance.data,
 };

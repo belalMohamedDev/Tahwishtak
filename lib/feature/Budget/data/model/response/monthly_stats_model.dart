@@ -5,13 +5,18 @@ part 'monthly_stats_model.g.dart';
 class GetMonthlyStatsModel {
   bool? status;
   String? message;
-  int? totalSpentInMonth;
+  double? totalStartingBalance;
+  double? totalCurrentBalance;
+  double? totalSpentInMonth;
+
   List<GetMonthlyStatsData>? data;
 
   GetMonthlyStatsModel({
     this.status,
     this.message,
     this.totalSpentInMonth,
+    this.totalCurrentBalance,
+    this.totalStartingBalance,
     this.data,
   });
 
