@@ -75,8 +75,8 @@ class _CustomDonutChartState extends State<CustomDonutChart>
                       },
                     ),
                     Positioned(
-                      top: responsive.setHeight(11),
-                      left: responsive.setWidth(25),
+                      top: responsive.setHeight(12),
+                      left: responsive.setWidth(22),
                       child: Column(
                         children: [
                           Directionality(

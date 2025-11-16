@@ -24,8 +24,11 @@ class _NativeBottomNavBarState extends State<NativeBottomNavBar> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: selectedIndex);
-     context.read<HomeCubit>().fetchGetTodayActivities();
-    context.read<MonthlyStatsCubit>().fetchGetMonthlyStats();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<HomeCubit>().fetchGetTodayActivities();
+      context.read<MonthlyStatsCubit>().fetchGetMonthlyStats();
+    });
   }
 
   void onButtonPressed(int index) {
