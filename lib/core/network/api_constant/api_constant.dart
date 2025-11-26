@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String baseUrl = 'https://tahwishtak-backend-production.up.railway.app';
+  static const String baseUrl = 'https://tahwishtak.vercel.app';
   static const int apiTimeOut = 120 * 1000;
 
   static const String login = '/v1/api/auth/login';

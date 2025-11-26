@@ -68,7 +68,7 @@ class _NativeBottomNavBarState extends State<NativeBottomNavBar> {
         selectedIndex: selectedIndex,
 
         barItems: <BarItem>[
-          BarItem(icon: IconlyBold.setting, title: 'الاعدادات'),
+          // BarItem(icon: IconlyBold.setting, title: 'الاعدادات'),
           // BarItem(icon: Icons.bar_chart_sharp, title: 'التحليل الشهرى'),
           BarItem(icon: IconlyBold.chart, title: 'تقسيم الميزانية'),
           BarItem(icon: IconlyBold.home, title: 'الصفحة الرئيسية         '),
@@ -79,10 +79,10 @@ class _NativeBottomNavBarState extends State<NativeBottomNavBar> {
 }
 
 List<Widget> _listOfWidget = <Widget>[
-  Container(
-    alignment: Alignment.center,
-    child: const Icon(IconlyBold.home, size: 56, color: Colors.green),
-  ),
+  // Container(
+  //   alignment: Alignment.center,
+  //   child: const Icon(IconlyBold.home, size: 56, color: Colors.green),
+  // ),
   // Container(
   //   alignment: Alignment.center,
   //   child: const Icon(IconlyBold.search, size: 56, color: Colors.brown),
