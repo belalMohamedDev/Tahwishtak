@@ -89,4 +89,24 @@ class HomeCubit extends Cubit<HomeState> {
       },
     );
   }
+
+  Future<void> fetchEditActivity(String id, String type, double price) async {
+    emit(const HomeState.editActivityLoading());
+
+    final response = await _homeRepositoryImplement.editActivityRepo(
+      id,
+      AddActivityRequest(type: type, price: price),
+    );
+
+    response.when(
+      success: (dataResponse) async {
+        _getTodayActivities = dataResponse.data!;
+
+        emit(HomeState.editActivitySuccess(_getTodayActivities!));
+      },
+      failure: (error) {
+        emit(HomeState.editActivityError(error));
+      },
+    );
+  }
 }

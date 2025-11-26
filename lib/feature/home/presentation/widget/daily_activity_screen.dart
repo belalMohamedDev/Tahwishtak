@@ -4,10 +4,18 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
+import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 
 class ActivityBottomSheet extends StatefulWidget {
-  const ActivityBottomSheet({super.key});
+  final TodayActivities? activityToEdit;
+  final bool isEditMode;
+
+  const ActivityBottomSheet({
+    super.key,
+    this.activityToEdit,
+    this.isEditMode = false,
+  });
 
   @override
   State<ActivityBottomSheet> createState() => _ActivityBottomSheetState();
@@ -27,6 +35,18 @@ class _ActivityBottomSheetState extends State<ActivityBottomSheet> {
     "التسوق",
     "شراء مأكولات",
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.isEditMode && widget.activityToEdit != null) {
+      selectedActivity = widget.activityToEdit!.type;
+      amount = widget.activityToEdit!.price!;
+    } else {
+      selectedDate = DateTime.now();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +136,7 @@ class _ActivityBottomSheetState extends State<ActivityBottomSheet> {
               const Text('المبلغ'),
               const SizedBox(height: 8),
               TextFormField(
+                initialValue: amount == 0 ? "" : amount.toString(),
                 keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
                 ),
@@ -136,10 +157,19 @@ class _ActivityBottomSheetState extends State<ActivityBottomSheet> {
 
               ElevatedButton(
                 onPressed: () {
-                  context.read<HomeCubit>().fetchAddActivity(
-                    selectedActivity!,
-                    amount,
-                  );
+                  if (widget.isEditMode) {
+                    context.read<HomeCubit>().fetchEditActivity(
+                      widget.activityToEdit!.sId!,
+                      selectedActivity!,
+                      amount,
+                    );
+                  } else {
+                    context.read<HomeCubit>().fetchAddActivity(
+                      selectedActivity!,
+                      amount,
+                    );
+                  }
+
                   Navigator.pop(context);
                 },
                 child: Row(
@@ -150,7 +180,7 @@ class _ActivityBottomSheetState extends State<ActivityBottomSheet> {
                     SizedBox(width: responsive.setWidth(3)),
 
                     Text(
-                      "حفظ",
+                      widget.isEditMode ? "حفظ التعديل" : "حفظ",
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                         fontSize: responsive.setTextSize(3.8),
                       ),
@@ -207,7 +237,6 @@ class _ActivityBottomSheetState extends State<ActivityBottomSheet> {
                 ),
                 child: Row(
                   children: [
-                    // مثال: أيقونة حسب النشاط
                     Icon(
                       Icons.check_circle_outline,
                       color: Colors.teal.shade400,

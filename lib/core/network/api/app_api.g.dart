@@ -162,6 +162,37 @@ class _AppServiceClient implements AppServiceClient {
   }
 
   @override
+  Future<TodayActivitiesModel> editActiviteService(
+    String id,
+    AddActivityRequest editActivityRequest,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(editActivityRequest.toJson());
+    final _options = _setStreamType<TodayActivitiesModel>(
+      Options(method: 'PUT', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/v1/api/dailyActivity/${id}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late TodayActivitiesModel _value;
+    try {
+      _value = TodayActivitiesModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<TodayActivitiesModel> startNewDayService(
     StartNewDayRequest startNewDayRequest,
   ) async {

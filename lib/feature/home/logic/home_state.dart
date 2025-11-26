@@ -32,4 +32,11 @@ class HomeState with _$HomeState {
 
   const factory HomeState.deleteActivitySuccess(TodayActivitiesData data) =
       DeleteActivitySuccess;
+
+  const factory HomeState.editActivityLoading() = EditActivityLoading;
+  const factory HomeState.editActivityError(ApiErrorModel apiErrorModel) =
+      EditActivityError;
+
+  const factory HomeState.editActivitySuccess(TodayActivitiesData data) =
+      EditActivitySuccess;
 }

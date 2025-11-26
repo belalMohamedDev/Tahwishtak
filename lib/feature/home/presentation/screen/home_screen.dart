@@ -7,8 +7,10 @@ import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
 import 'package:tahwishtak/core/utils/extensions.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
+import 'package:tahwishtak/feature/home/data/model/today_activities_model.dart';
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/balance_gauge.dart';
+import 'package:tahwishtak/feature/home/presentation/widget/daily_activity_screen.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/get_activity_icon.dart';
 
 class HomePage extends StatelessWidget {
@@ -61,7 +63,7 @@ class HomePage extends StatelessWidget {
                       _todayActivityPriceRow(context, responsive),
                       SizedBox(height: responsive.setHeight(2)),
 
-                      todayActiviteContianer(context, responsive),
+                      _todayActiviteContianer(context, responsive),
                     ],
                   ),
                 ),
@@ -74,6 +76,7 @@ class HomePage extends StatelessWidget {
                 addActivityLoading: () => true,
                 startDayLoading: () => true,
                 deleteActivityLoading: () => true,
+                editActivityLoading: () => true,
                 orElse: () => false,
               ),
             ),
@@ -205,7 +208,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Expanded todayActiviteContianer(
+  Expanded _todayActiviteContianer(
     BuildContext context,
     ResponsiveUtils responsive,
   ) {
@@ -250,8 +253,9 @@ class HomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         responsive.setBorderRadius(4),
                       ),
-                      onPressed: (context) {},
-                      // context.read<HomeCubit>().editActivity(activity!),
+                      onPressed: (context) =>
+                          _showEditActivitySheet(context, activity!),
+
                       backgroundColor: Colors.blue.shade400,
                       foregroundColor: Colors.white,
                       icon: Icons.edit,
@@ -300,8 +304,27 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  void _showEditActivitySheet(BuildContext context, TodayActivities activity) {
+    final homeCubit = context.read<HomeCubit>();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) {
+        return BlocProvider.value(
+          value: homeCubit,
+          child: ActivityBottomSheet(
+            activityToEdit: activity,
+            isEditMode: true,
+          ),
+        );
+      },
+    );
+  }
+
   void _showDeleteDialog(BuildContext context, String id) {
-    final homeCubit = context.read<HomeCubit>(); // 👈 خزن الـ Cubit هنا
+    final homeCubit = context.read<HomeCubit>();
 
     showDialog(
       context: context,
