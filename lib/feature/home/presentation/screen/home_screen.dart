@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:tahwishtak/core/application/di.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:tahwishtak/core/routing/routes.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
@@ -9,18 +8,11 @@ import 'package:tahwishtak/core/utils/extensions.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/balance_gauge.dart';
-import 'package:tahwishtak/feature/home/presentation/widget/daily_activity_screen.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/get_activity_icon.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final responsive = ResponsiveUtils(context);
@@ -33,109 +25,7 @@ class _HomePageState extends State<HomePage>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withValues(alpha: 0.25),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor: ColorManger.whiteColor,
-                          maxRadius: responsive.setHeight(3),
-                          child: Padding(
-                            padding: responsive.setPadding(top: 1),
-                            child: Image.asset(
-                              ImageAsset.notification,
-                              height: responsive.setHeight(4.5),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: responsive.setWidth(3)),
-                      Expanded(
-                        child: Container(
-                          height: responsive.setHeight(8),
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withValues(alpha: 0.12),
-                                blurRadius: 30,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          child: TextFormField(
-                            enabled: false,
-                            textAlign: TextAlign.right,
-                            decoration: InputDecoration(
-                              hintText: "ابحث هنا بالتاريخ",
-                              suffixIcon: Padding(
-                                padding: responsive.setPadding(
-                                  top: 1,
-                                  right: 2,
-                                ),
-                                child: Image.asset(ImageAsset.search),
-                              ),
-
-                              suffixIconConstraints: BoxConstraints(
-                                maxHeight: responsive.setHeight(12),
-                                maxWidth: responsive.setWidth(12),
-                              ),
-
-                              fillColor: ColorManger.whiteColor,
-
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                    fontSize: responsive.setTextSize(3.5),
-                                    color: ColorManger.textColor,
-                                  ),
-
-                              disabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorManger.secondaryTextColor
-                                      .withAlpha(50),
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.elliptical(
-                                    responsive.setBorderRadius(4),
-                                    responsive.setBorderRadius(4),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: responsive.setWidth(4)),
-                      GestureDetector(
-                        onTap: () {
-                          context.pushNamed(Routes.profileRoute);
-                        },
-                        child: CircleAvatar(
-                          backgroundColor: ColorManger.whiteColor,
-                          maxRadius: responsive.setHeight(3),
-                          child: ClipOval(
-                            child: Image.asset(
-                              fit: BoxFit.cover,
-                              ImageAsset.profile,
-                              height: responsive.setHeight(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  _appBarWidget(responsive, context),
 
                   BalanceGaugeWidget(
                     currentBalance:
@@ -162,90 +52,261 @@ class _HomePageState extends State<HomePage>
                     thickness: 0.6,
                   ),
                   SizedBox(height: responsive.setHeight(2)),
-                  Row(
-                    children: [
-                      Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: Text(
-                          "${context.read<HomeCubit>().getTodayActivities?.totalSpent ?? '--'}  ج",
-                          style: Theme.of(context).textTheme.titleLarge!
-                              .copyWith(fontSize: responsive.setTextSize(4.5)),
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        "نشاطك اليومي",
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontSize: responsive.setTextSize(4),
-                        ),
-                      ),
-                    ],
-                  ),
+                  _todayActivityPriceRow(context, responsive),
                   SizedBox(height: responsive.setHeight(2)),
 
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount:
-                          context
-                              .read<HomeCubit>()
-                              .getTodayActivities
-                              ?.activities
-                              ?.length ??
-                          0,
-
-                      itemBuilder: (context, index) {
-                        final activity = context
-                            .read<HomeCubit>()
-                            .getTodayActivities
-                            ?.activities?[index];
-                        return Padding(
-                          padding: responsive.setPadding(bottom: 1),
-                          child: Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Card(
-                              margin: EdgeInsets.zero,
-                              elevation: 0.1,
-                              shadowColor: ColorManger.whiteColor,
-                              color: ColorManger.whiteColor,
-
-                              child: ListTile(
-                                leading: Image.asset(
-                                  getActivityImage(activity?.type),
-                                  height: responsive.setHeight(5),
-                                ),
-
-                                title: Text(
-                                  activity?.type ?? "نشاط غير محدد",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                ),
-                                subtitle: Text(
-                                  "الساعة:   ${activity?.time ?? '--'}",
-                                  style: Theme.of(context).textTheme.bodySmall!
-                                      .copyWith(
-                                        color: ColorManger.secondaryTextColor,
-                                      ),
-                                ),
-                                trailing: Text(
-                                  "${activity?.price ?? '--'}  ج",
-                                  style: Theme.of(context).textTheme.titleLarge!
-                                      .copyWith(
-                                        fontSize: responsive.setTextSize(3.5),
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  todayActiviteContianer(context, responsive),
                 ],
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+
+  Row _appBarWidget(ResponsiveUtils responsive, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withValues(alpha: 0.25),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: CircleAvatar(
+            backgroundColor: ColorManger.whiteColor,
+            maxRadius: responsive.setHeight(3),
+            child: Padding(
+              padding: responsive.setPadding(top: 1),
+              child: Image.asset(
+                ImageAsset.notification,
+                height: responsive.setHeight(4.5),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: responsive.setWidth(3)),
+        Expanded(
+          child: Container(
+            height: responsive.setHeight(8),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withValues(alpha: 0.12),
+                  blurRadius: 30,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: TextFormField(
+              enabled: false,
+              textAlign: TextAlign.right,
+              decoration: InputDecoration(
+                hintText: "ابحث هنا بالتاريخ",
+                suffixIcon: Padding(
+                  padding: responsive.setPadding(top: 1, right: 2),
+                  child: Image.asset(ImageAsset.search),
+                ),
+
+                suffixIconConstraints: BoxConstraints(
+                  maxHeight: responsive.setHeight(12),
+                  maxWidth: responsive.setWidth(12),
+                ),
+
+                fillColor: ColorManger.whiteColor,
+
+                hintStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  fontSize: responsive.setTextSize(3.5),
+                  color: ColorManger.textColor,
+                ),
+
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorManger.secondaryTextColor.withAlpha(50),
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.elliptical(
+                      responsive.setBorderRadius(4),
+                      responsive.setBorderRadius(4),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: responsive.setWidth(4)),
+        GestureDetector(
+          onTap: () {
+            context.pushNamed(Routes.profileRoute);
+          },
+          child: CircleAvatar(
+            backgroundColor: ColorManger.whiteColor,
+            maxRadius: responsive.setHeight(3),
+            child: ClipOval(
+              child: Image.asset(
+                fit: BoxFit.cover,
+                ImageAsset.profile,
+                height: responsive.setHeight(10),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _todayActivityPriceRow(BuildContext context, ResponsiveUtils responsive) {
+    return Row(
+      children: [
+        Directionality(
+          textDirection: TextDirection.rtl,
+          child: Text(
+            "${context.read<HomeCubit>().getTodayActivities?.totalSpent ?? '--'}  ج",
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(
+              fontSize: responsive.setTextSize(4.5),
+            ),
+          ),
+        ),
+        Spacer(),
+        Text(
+          "نشاطك اليومي",
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge!.copyWith(fontSize: responsive.setTextSize(4)),
+        ),
+      ],
+    );
+  }
+
+  Expanded todayActiviteContianer(
+    BuildContext context,
+    ResponsiveUtils responsive,
+  ) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount:
+            context.read<HomeCubit>().getTodayActivities?.activities?.length ??
+            0,
+        itemBuilder: (context, index) {
+          final activity = context
+              .read<HomeCubit>()
+              .getTodayActivities
+              ?.activities?[index];
+
+          return Padding(
+            padding: responsive.setPadding(bottom: 1),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Slidable(
+                key: ValueKey(activity?.sId),
+
+                endActionPane: ActionPane(
+                  motion: ScrollMotion(),
+
+                  children: [
+                    SizedBox(width: responsive.setWidth(2)),
+                    SlidableAction(
+                      borderRadius: BorderRadius.circular(
+                        responsive.setBorderRadius(4),
+                      ),
+
+                      onPressed: (context) =>
+                          _showDeleteDialog(context, activity!.sId!),
+                      backgroundColor: Colors.red.shade400,
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      label: 'حذف',
+                    ),
+
+                    SizedBox(width: responsive.setWidth(2)),
+                    SlidableAction(
+                      borderRadius: BorderRadius.circular(
+                        responsive.setBorderRadius(4),
+                      ),
+                      onPressed: (context) {},
+                      // context.read<HomeCubit>().editActivity(activity!),
+                      backgroundColor: Colors.blue.shade400,
+                      foregroundColor: Colors.white,
+                      icon: Icons.edit,
+                      label: 'تعديل',
+                    ),
+                  ],
+                ),
+
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  elevation: 0.1,
+                  color: Colors.white,
+                  child: ListTile(
+                    leading: Image.asset(
+                      getActivityImage(activity?.type),
+                      height: responsive.setHeight(5),
+                    ),
+
+                    title: Text(
+                      activity?.type ?? "نشاط غير محدد",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    subtitle: Text(
+                      "الساعة:   ${activity?.time ?? '--'}",
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: ColorManger.secondaryTextColor,
+                      ),
+                    ),
+
+                    trailing: Text(
+                      "${activity?.price ?? '--'} ج",
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontSize: responsive.setTextSize(3.5),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showDeleteDialog(BuildContext context, String id) {
+    final homeCubit = context.read<HomeCubit>(); // 👈 خزن الـ Cubit هنا
+
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: ColorManger.bGColor,
+          title: const Text("حذف النشاط"),
+          content: const Text("هل أنت متأكد أنك تريد حذف هذا النشاط؟"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: const Text("إلغاء"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop(); // 👈 أقفل الـ dialog الأول
+                homeCubit.fetchDeleteActivity(
+                  id,
+                ); // 👈 استخدم الـ cubit المخزون
+              },
+              child: const Text("حذف"),
+            ),
+          ],
         );
       },
     );

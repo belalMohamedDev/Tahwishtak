@@ -29,6 +29,9 @@ abstract class AppServiceClient {
     @Body() AddActivityRequest addActivityRequest,
   );
 
+  @DELETE("${ApiConstants.dailyActivity}/{activityId}")
+  Future<TodayActivitiesModel> deleteActiviteService(@Path("activityId") String id);
+
   @POST("${ApiConstants.dailyActivity}/newDays")
   Future<TodayActivitiesModel> startNewDayService(
     @Body() StartNewDayRequest startNewDayRequest,

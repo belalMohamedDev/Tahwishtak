@@ -38,6 +38,7 @@ class TodayActivitiesData {
 
 @JsonSerializable()
 class TodayActivities {
+  @JsonKey(name: "_id")
   String? sId;
   String? user;
   String? dailyActivity;

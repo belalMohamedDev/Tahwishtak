@@ -16,6 +16,8 @@ abstract class HomeRepository {
   Future<ApiResult<TodayActivitiesModel>> startNewDayRepo(
     StartNewDayRequest startNewDayRequest,
   );
+
+  Future<ApiResult<TodayActivitiesModel>> deleteActivityRepo(String id);
 }
 
 class HomeRepositoryImplement implements HomeRepository {
@@ -96,6 +98,27 @@ class HomeRepositoryImplement implements HomeRepository {
     try {
       final response = await _apiService.startNewDayService(startNewDayRequest);
 
+      final todayKey = DateTime.now().toString().substring(0, 10);
+
+      await TodayActivitiesLocalDataSource.clearOldCaches();
+
+      await TodayActivitiesLocalDataSource.cacheTodayActivities(
+        response,
+        todayKey,
+      );
+
+      ActivityEvents().dispatch("today_updated");
+
+      return ApiResult.success(response);
+    } catch (error) {
+      return ApiResult.failure(ApiErrorHandler.handle(error));
+    }
+  }
+
+  @override
+  Future<ApiResult<TodayActivitiesModel>> deleteActivityRepo(String id) async {
+    try {
+      final response = await _apiService.deleteActiviteService(id);
       final todayKey = DateTime.now().toString().substring(0, 10);
 
       await TodayActivitiesLocalDataSource.clearOldCaches();

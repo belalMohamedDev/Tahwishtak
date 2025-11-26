@@ -12,7 +12,7 @@ part of 'app_api.dart';
 
 class _AppServiceClient implements AppServiceClient {
   _AppServiceClient(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://tahwishtak-backend-production.up.railway.app';
+    baseUrl ??= 'https://tahwishtak.vercel.app';
   }
 
   final Dio _dio;
@@ -118,6 +118,33 @@ class _AppServiceClient implements AppServiceClient {
           .compose(
             _dio.options,
             '/v1/api/dailyActivity',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late TodayActivitiesModel _value;
+    try {
+      _value = TodayActivitiesModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<TodayActivitiesModel> deleteActiviteService(String id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<TodayActivitiesModel>(
+      Options(method: 'DELETE', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/v1/api/dailyActivity/${id}',
             queryParameters: queryParameters,
             data: _data,
           )

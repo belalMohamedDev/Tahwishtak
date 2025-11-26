@@ -72,4 +72,21 @@ class HomeCubit extends Cubit<HomeState> {
       },
     );
   }
+
+  Future<void> fetchDeleteActivity(String id) async {
+    emit(const HomeState.deleteActivityLoading());
+
+    final response = await _homeRepositoryImplement.deleteActivityRepo(id);
+
+    response.when(
+      success: (dataResponse) async {
+        _getTodayActivities = dataResponse.data!;
+
+        emit(HomeState.deleteActivitySuccess(_getTodayActivities!));
+      },
+      failure: (error) {
+        emit(HomeState.deleteActivityError(error));
+      },
+    );
+  }
 }

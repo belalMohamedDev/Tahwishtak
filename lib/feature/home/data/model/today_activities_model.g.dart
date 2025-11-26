@@ -47,7 +47,7 @@ Map<String, dynamic> _$TodayActivitiesDataToJson(
 
 TodayActivities _$TodayActivitiesFromJson(Map<String, dynamic> json) =>
     TodayActivities(
-      sId: json['sId'] as String?,
+      sId: json['_id'] as String?,
       user: json['user'] as String?,
       dailyActivity: json['dailyActivity'] as String?,
       type: json['type'] as String?,
@@ -58,7 +58,7 @@ TodayActivities _$TodayActivitiesFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$TodayActivitiesToJson(TodayActivities instance) =>
     <String, dynamic>{
-      'sId': instance.sId,
+      '_id': instance.sId,
       'user': instance.user,
       'dailyActivity': instance.dailyActivity,
       'type': instance.type,

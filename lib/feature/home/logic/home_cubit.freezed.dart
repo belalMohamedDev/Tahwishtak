@@ -55,7 +55,7 @@ extension HomeStatePatterns on HomeState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( GetTodayActivitiesLoading value)?  getTodayActivitiesLoading,TResult Function( GetTodayActivitiesError value)?  getTodayActivitiesError,TResult Function( GetTodayActivitiesSuccess value)?  getTodayActivitiesSuccess,TResult Function( AddActivityLoading value)?  addActivityLoading,TResult Function( AddActivityError value)?  addActivityError,TResult Function( AddActivitySuccess value)?  addActivitySuccess,TResult Function( StartDayLoading value)?  startDayLoading,TResult Function( StartDayError value)?  startDayError,TResult Function( StartDaySuccess value)?  startDaySuccess,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( GetTodayActivitiesLoading value)?  getTodayActivitiesLoading,TResult Function( GetTodayActivitiesError value)?  getTodayActivitiesError,TResult Function( GetTodayActivitiesSuccess value)?  getTodayActivitiesSuccess,TResult Function( AddActivityLoading value)?  addActivityLoading,TResult Function( AddActivityError value)?  addActivityError,TResult Function( AddActivitySuccess value)?  addActivitySuccess,TResult Function( StartDayLoading value)?  startDayLoading,TResult Function( StartDayError value)?  startDayError,TResult Function( StartDaySuccess value)?  startDaySuccess,TResult Function( DeleteActivityLoading value)?  deleteActivityLoading,TResult Function( DeleteActivityError value)?  deleteActivityError,TResult Function( DeleteActivitySuccess value)?  deleteActivitySuccess,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
@@ -68,7 +68,10 @@ return addActivityError(_that);case AddActivitySuccess() when addActivitySuccess
 return addActivitySuccess(_that);case StartDayLoading() when startDayLoading != null:
 return startDayLoading(_that);case StartDayError() when startDayError != null:
 return startDayError(_that);case StartDaySuccess() when startDaySuccess != null:
-return startDaySuccess(_that);case _:
+return startDaySuccess(_that);case DeleteActivityLoading() when deleteActivityLoading != null:
+return deleteActivityLoading(_that);case DeleteActivityError() when deleteActivityError != null:
+return deleteActivityError(_that);case DeleteActivitySuccess() when deleteActivitySuccess != null:
+return deleteActivitySuccess(_that);case _:
   return orElse();
 
 }
@@ -86,7 +89,7 @@ return startDaySuccess(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( GetTodayActivitiesLoading value)  getTodayActivitiesLoading,required TResult Function( GetTodayActivitiesError value)  getTodayActivitiesError,required TResult Function( GetTodayActivitiesSuccess value)  getTodayActivitiesSuccess,required TResult Function( AddActivityLoading value)  addActivityLoading,required TResult Function( AddActivityError value)  addActivityError,required TResult Function( AddActivitySuccess value)  addActivitySuccess,required TResult Function( StartDayLoading value)  startDayLoading,required TResult Function( StartDayError value)  startDayError,required TResult Function( StartDaySuccess value)  startDaySuccess,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( GetTodayActivitiesLoading value)  getTodayActivitiesLoading,required TResult Function( GetTodayActivitiesError value)  getTodayActivitiesError,required TResult Function( GetTodayActivitiesSuccess value)  getTodayActivitiesSuccess,required TResult Function( AddActivityLoading value)  addActivityLoading,required TResult Function( AddActivityError value)  addActivityError,required TResult Function( AddActivitySuccess value)  addActivitySuccess,required TResult Function( StartDayLoading value)  startDayLoading,required TResult Function( StartDayError value)  startDayError,required TResult Function( StartDaySuccess value)  startDaySuccess,required TResult Function( DeleteActivityLoading value)  deleteActivityLoading,required TResult Function( DeleteActivityError value)  deleteActivityError,required TResult Function( DeleteActivitySuccess value)  deleteActivitySuccess,}){
 final _that = this;
 switch (_that) {
 case _Initial():
@@ -99,7 +102,10 @@ return addActivityError(_that);case AddActivitySuccess():
 return addActivitySuccess(_that);case StartDayLoading():
 return startDayLoading(_that);case StartDayError():
 return startDayError(_that);case StartDaySuccess():
-return startDaySuccess(_that);case _:
+return startDaySuccess(_that);case DeleteActivityLoading():
+return deleteActivityLoading(_that);case DeleteActivityError():
+return deleteActivityError(_that);case DeleteActivitySuccess():
+return deleteActivitySuccess(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -116,7 +122,7 @@ return startDaySuccess(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( GetTodayActivitiesLoading value)?  getTodayActivitiesLoading,TResult? Function( GetTodayActivitiesError value)?  getTodayActivitiesError,TResult? Function( GetTodayActivitiesSuccess value)?  getTodayActivitiesSuccess,TResult? Function( AddActivityLoading value)?  addActivityLoading,TResult? Function( AddActivityError value)?  addActivityError,TResult? Function( AddActivitySuccess value)?  addActivitySuccess,TResult? Function( StartDayLoading value)?  startDayLoading,TResult? Function( StartDayError value)?  startDayError,TResult? Function( StartDaySuccess value)?  startDaySuccess,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( GetTodayActivitiesLoading value)?  getTodayActivitiesLoading,TResult? Function( GetTodayActivitiesError value)?  getTodayActivitiesError,TResult? Function( GetTodayActivitiesSuccess value)?  getTodayActivitiesSuccess,TResult? Function( AddActivityLoading value)?  addActivityLoading,TResult? Function( AddActivityError value)?  addActivityError,TResult? Function( AddActivitySuccess value)?  addActivitySuccess,TResult? Function( StartDayLoading value)?  startDayLoading,TResult? Function( StartDayError value)?  startDayError,TResult? Function( StartDaySuccess value)?  startDaySuccess,TResult? Function( DeleteActivityLoading value)?  deleteActivityLoading,TResult? Function( DeleteActivityError value)?  deleteActivityError,TResult? Function( DeleteActivitySuccess value)?  deleteActivitySuccess,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
@@ -129,7 +135,10 @@ return addActivityError(_that);case AddActivitySuccess() when addActivitySuccess
 return addActivitySuccess(_that);case StartDayLoading() when startDayLoading != null:
 return startDayLoading(_that);case StartDayError() when startDayError != null:
 return startDayError(_that);case StartDaySuccess() when startDaySuccess != null:
-return startDaySuccess(_that);case _:
+return startDaySuccess(_that);case DeleteActivityLoading() when deleteActivityLoading != null:
+return deleteActivityLoading(_that);case DeleteActivityError() when deleteActivityError != null:
+return deleteActivityError(_that);case DeleteActivitySuccess() when deleteActivitySuccess != null:
+return deleteActivitySuccess(_that);case _:
   return null;
 
 }
@@ -146,7 +155,7 @@ return startDaySuccess(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  getTodayActivitiesLoading,TResult Function( ApiErrorModel apiErrorModel)?  getTodayActivitiesError,TResult Function( TodayActivitiesData data)?  getTodayActivitiesSuccess,TResult Function()?  addActivityLoading,TResult Function( ApiErrorModel apiErrorModel)?  addActivityError,TResult Function( TodayActivitiesData data)?  addActivitySuccess,TResult Function()?  startDayLoading,TResult Function( ApiErrorModel apiErrorModel)?  startDayError,TResult Function( TodayActivitiesData data)?  startDaySuccess,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  getTodayActivitiesLoading,TResult Function( ApiErrorModel apiErrorModel)?  getTodayActivitiesError,TResult Function( TodayActivitiesData data)?  getTodayActivitiesSuccess,TResult Function()?  addActivityLoading,TResult Function( ApiErrorModel apiErrorModel)?  addActivityError,TResult Function( TodayActivitiesData data)?  addActivitySuccess,TResult Function()?  startDayLoading,TResult Function( ApiErrorModel apiErrorModel)?  startDayError,TResult Function( TodayActivitiesData data)?  startDaySuccess,TResult Function()?  deleteActivityLoading,TResult Function( ApiErrorModel apiErrorModel)?  deleteActivityError,TResult Function( TodayActivitiesData data)?  deleteActivitySuccess,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case GetTodayActivitiesLoading() when getTodayActivitiesLoading != null:
@@ -158,7 +167,10 @@ return addActivityError(_that.apiErrorModel);case AddActivitySuccess() when addA
 return addActivitySuccess(_that.data);case StartDayLoading() when startDayLoading != null:
 return startDayLoading();case StartDayError() when startDayError != null:
 return startDayError(_that.apiErrorModel);case StartDaySuccess() when startDaySuccess != null:
-return startDaySuccess(_that.data);case _:
+return startDaySuccess(_that.data);case DeleteActivityLoading() when deleteActivityLoading != null:
+return deleteActivityLoading();case DeleteActivityError() when deleteActivityError != null:
+return deleteActivityError(_that.apiErrorModel);case DeleteActivitySuccess() when deleteActivitySuccess != null:
+return deleteActivitySuccess(_that.data);case _:
   return orElse();
 
 }
@@ -176,7 +188,7 @@ return startDaySuccess(_that.data);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  getTodayActivitiesLoading,required TResult Function( ApiErrorModel apiErrorModel)  getTodayActivitiesError,required TResult Function( TodayActivitiesData data)  getTodayActivitiesSuccess,required TResult Function()  addActivityLoading,required TResult Function( ApiErrorModel apiErrorModel)  addActivityError,required TResult Function( TodayActivitiesData data)  addActivitySuccess,required TResult Function()  startDayLoading,required TResult Function( ApiErrorModel apiErrorModel)  startDayError,required TResult Function( TodayActivitiesData data)  startDaySuccess,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  getTodayActivitiesLoading,required TResult Function( ApiErrorModel apiErrorModel)  getTodayActivitiesError,required TResult Function( TodayActivitiesData data)  getTodayActivitiesSuccess,required TResult Function()  addActivityLoading,required TResult Function( ApiErrorModel apiErrorModel)  addActivityError,required TResult Function( TodayActivitiesData data)  addActivitySuccess,required TResult Function()  startDayLoading,required TResult Function( ApiErrorModel apiErrorModel)  startDayError,required TResult Function( TodayActivitiesData data)  startDaySuccess,required TResult Function()  deleteActivityLoading,required TResult Function( ApiErrorModel apiErrorModel)  deleteActivityError,required TResult Function( TodayActivitiesData data)  deleteActivitySuccess,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case GetTodayActivitiesLoading():
@@ -188,7 +200,10 @@ return addActivityError(_that.apiErrorModel);case AddActivitySuccess():
 return addActivitySuccess(_that.data);case StartDayLoading():
 return startDayLoading();case StartDayError():
 return startDayError(_that.apiErrorModel);case StartDaySuccess():
-return startDaySuccess(_that.data);case _:
+return startDaySuccess(_that.data);case DeleteActivityLoading():
+return deleteActivityLoading();case DeleteActivityError():
+return deleteActivityError(_that.apiErrorModel);case DeleteActivitySuccess():
+return deleteActivitySuccess(_that.data);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,7 +220,7 @@ return startDaySuccess(_that.data);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  getTodayActivitiesLoading,TResult? Function( ApiErrorModel apiErrorModel)?  getTodayActivitiesError,TResult? Function( TodayActivitiesData data)?  getTodayActivitiesSuccess,TResult? Function()?  addActivityLoading,TResult? Function( ApiErrorModel apiErrorModel)?  addActivityError,TResult? Function( TodayActivitiesData data)?  addActivitySuccess,TResult? Function()?  startDayLoading,TResult? Function( ApiErrorModel apiErrorModel)?  startDayError,TResult? Function( TodayActivitiesData data)?  startDaySuccess,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  getTodayActivitiesLoading,TResult? Function( ApiErrorModel apiErrorModel)?  getTodayActivitiesError,TResult? Function( TodayActivitiesData data)?  getTodayActivitiesSuccess,TResult? Function()?  addActivityLoading,TResult? Function( ApiErrorModel apiErrorModel)?  addActivityError,TResult? Function( TodayActivitiesData data)?  addActivitySuccess,TResult? Function()?  startDayLoading,TResult? Function( ApiErrorModel apiErrorModel)?  startDayError,TResult? Function( TodayActivitiesData data)?  startDaySuccess,TResult? Function()?  deleteActivityLoading,TResult? Function( ApiErrorModel apiErrorModel)?  deleteActivityError,TResult? Function( TodayActivitiesData data)?  deleteActivitySuccess,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case GetTodayActivitiesLoading() when getTodayActivitiesLoading != null:
@@ -217,7 +232,10 @@ return addActivityError(_that.apiErrorModel);case AddActivitySuccess() when addA
 return addActivitySuccess(_that.data);case StartDayLoading() when startDayLoading != null:
 return startDayLoading();case StartDayError() when startDayError != null:
 return startDayError(_that.apiErrorModel);case StartDaySuccess() when startDaySuccess != null:
-return startDaySuccess(_that.data);case _:
+return startDaySuccess(_that.data);case DeleteActivityLoading() when deleteActivityLoading != null:
+return deleteActivityLoading();case DeleteActivityError() when deleteActivityError != null:
+return deleteActivityError(_that.apiErrorModel);case DeleteActivitySuccess() when deleteActivitySuccess != null:
+return deleteActivitySuccess(_that.data);case _:
   return null;
 
 }
@@ -741,6 +759,170 @@ class _$StartDaySuccessCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? data = null,}) {
   return _then(StartDaySuccess(
+null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as TodayActivitiesData,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DeleteActivityLoading implements HomeState {
+  const DeleteActivityLoading();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteActivityLoading);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HomeState.deleteActivityLoading()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class DeleteActivityError implements HomeState {
+  const DeleteActivityError(this.apiErrorModel);
+  
+
+ final  ApiErrorModel apiErrorModel;
+
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DeleteActivityErrorCopyWith<DeleteActivityError> get copyWith => _$DeleteActivityErrorCopyWithImpl<DeleteActivityError>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteActivityError&&(identical(other.apiErrorModel, apiErrorModel) || other.apiErrorModel == apiErrorModel));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,apiErrorModel);
+
+@override
+String toString() {
+  return 'HomeState.deleteActivityError(apiErrorModel: $apiErrorModel)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DeleteActivityErrorCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
+  factory $DeleteActivityErrorCopyWith(DeleteActivityError value, $Res Function(DeleteActivityError) _then) = _$DeleteActivityErrorCopyWithImpl;
+@useResult
+$Res call({
+ ApiErrorModel apiErrorModel
+});
+
+
+
+
+}
+/// @nodoc
+class _$DeleteActivityErrorCopyWithImpl<$Res>
+    implements $DeleteActivityErrorCopyWith<$Res> {
+  _$DeleteActivityErrorCopyWithImpl(this._self, this._then);
+
+  final DeleteActivityError _self;
+  final $Res Function(DeleteActivityError) _then;
+
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? apiErrorModel = null,}) {
+  return _then(DeleteActivityError(
+null == apiErrorModel ? _self.apiErrorModel : apiErrorModel // ignore: cast_nullable_to_non_nullable
+as ApiErrorModel,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DeleteActivitySuccess implements HomeState {
+  const DeleteActivitySuccess(this.data);
+  
+
+ final  TodayActivitiesData data;
+
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DeleteActivitySuccessCopyWith<DeleteActivitySuccess> get copyWith => _$DeleteActivitySuccessCopyWithImpl<DeleteActivitySuccess>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeleteActivitySuccess&&(identical(other.data, data) || other.data == data));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,data);
+
+@override
+String toString() {
+  return 'HomeState.deleteActivitySuccess(data: $data)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DeleteActivitySuccessCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
+  factory $DeleteActivitySuccessCopyWith(DeleteActivitySuccess value, $Res Function(DeleteActivitySuccess) _then) = _$DeleteActivitySuccessCopyWithImpl;
+@useResult
+$Res call({
+ TodayActivitiesData data
+});
+
+
+
+
+}
+/// @nodoc
+class _$DeleteActivitySuccessCopyWithImpl<$Res>
+    implements $DeleteActivitySuccessCopyWith<$Res> {
+  _$DeleteActivitySuccessCopyWithImpl(this._self, this._then);
+
+  final DeleteActivitySuccess _self;
+  final $Res Function(DeleteActivitySuccess) _then;
+
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? data = null,}) {
+  return _then(DeleteActivitySuccess(
 null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
 as TodayActivitiesData,
   ));
