@@ -21,135 +21,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
-  bool isOpened = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _animation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  void toggleMenu() {
-    setState(() {
-      if (isOpened) {
-        _animationController.reverse();
-      } else {
-        _animationController.forward();
-      }
-      isOpened = !isOpened;
-    });
-  }
-
-  Widget _buildOption({
-    required IconData icon,
-    required String label,
-    required VoidCallback onPressed,
-  }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.2),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: MaterialButton(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        onPressed: onPressed,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ShaderMask(
-              shaderCallback: (bounds) => const LinearGradient(
-                colors: [Color(0xFF00796B), Color(0xFF26A69A)],
-              ).createShader(bounds),
-              child: const Icon(IconlyBold.wallet, color: Colors.white),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              label,
-              style: const TextStyle(
-                color: Color(0xFF00796B),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final responsive = ResponsiveUtils(context);
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return Scaffold(
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          floatingActionButton: Stack(
-            alignment: Alignment.bottomRight,
-
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: responsive.setHeight(10),
-                  left: responsive.screenWidth * 0.66,
-                ),
-                child: SizeTransition(
-                  sizeFactor: _animation,
-                  axisAlignment: -1.0,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      _buildOption(
-                        icon: IconlyBold.wallet,
-                        label: 'تحويشتك',
-                        onPressed: () {},
-                      ),
-                      SizedBox(height: responsive.setHeight(1)),
-                      _buildOption(
-                        icon: IconlyBold.plus,
-                        label: 'مصروفاتك',
-                        onPressed: () => _showActivitySheet(context),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              FloatingActionButton(
-                backgroundColor: isOpened
-                    ? Colors.orange
-                    : const Color(0xFF00796B),
-                onPressed: toggleMenu,
-                child: AnimatedIcon(
-                  icon: AnimatedIcons.menu_close,
-                  progress: _animationController,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
           body: SafeArea(
             child: Padding(
               padding: responsive.setPadding(top: 1, left: 4, right: 4),
@@ -327,14 +204,16 @@ class _HomePageState extends State<HomePage>
                             textDirection: TextDirection.rtl,
                             child: Card(
                               margin: EdgeInsets.zero,
+                              elevation: 0.1,
+                              shadowColor: ColorManger.whiteColor,
                               color: ColorManger.whiteColor,
 
                               child: ListTile(
-                                leading: Icon(
-                                  getActivityIcon(activity?.type),
-                                  color: Colors.orange,
-                                  size: responsive.setIconSize(10),
+                                leading: Image.asset(
+                                  getActivityImage(activity?.type),
+                                  height: responsive.setHeight(5),
                                 ),
+
                                 title: Text(
                                   activity?.type ?? "نشاط غير محدد",
                                   style: Theme.of(context)
@@ -367,20 +246,6 @@ class _HomePageState extends State<HomePage>
               ),
             ),
           ),
-        );
-      },
-    );
-  }
-
-  void _showActivitySheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) {
-        return BlocProvider.value(
-          value: instance<HomeCubit>(),
-          child: const ActivityBottomSheet(),
         );
       },
     );

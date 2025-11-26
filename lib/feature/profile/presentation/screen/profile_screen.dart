@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
               _buildHeader(responsive),
               const SizedBox(height: 16),
 
-              _buildTitle("إعدادات أخرى"),
+              _buildTitle("إعدادات أخرى", responsive),
 
               const SizedBox(height: 12),
 
@@ -126,17 +126,25 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      alignment: Alignment.centerRight,
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-          color: Colors.black87,
-        ),
+  Widget _buildTitle(String text, ResponsiveUtils responsive) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: responsive.setWidth(4)),
+      child: Row(
+        children: [
+          Icon(Icons.settings, color: Colors.black54),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: responsive.setWidth(3)),
+            alignment: Alignment.centerRight,
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: responsive.setTextSize(4),
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

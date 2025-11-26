@@ -1,20 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:tahwishtak/core/style/images/asset_manger.dart';
 
-IconData getActivityIcon(String? type) {
+String getActivityImage(String? type) {
   switch (type) {
     case "حيوانات":
-      return Icons.pets;
+      return ImageAsset.bee;
     case "معاملات نقدية":
-      return Icons.attach_money;
+      return ImageAsset.moneyBags;
     case "مواصلات":
-      return Icons.directions_bus;
+      return ImageAsset.publicTransport;
     case "سفر":
-      return Icons.flight;
+      return ImageAsset.travel;
     case "التسوق":
-      return Icons.shopping_bag_rounded;
+      return ImageAsset.shoppingBag;
     case "شراء مأكولات":
-      return Icons.fastfood;
+      return ImageAsset.fastfood;
     default:
-      return Icons.help_outline; 
+      return ImageAsset.handshake;
   }
 }

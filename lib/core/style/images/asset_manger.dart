@@ -21,6 +21,13 @@ class ImageAsset {
   static const String noRoute = "$imagePath/noRoute.svg";
   static const String profile = "$imagePath/profile.jpg";
   static const String bottomBackground = "$imagePath/bottomBackground.png";
+  static const String moneyBags = "$imagePath/money-bags.png";
+  static const String bee = "$imagePath/bee.png";
+  static const String travel = "$imagePath/travel.png";
+  static const String publicTransport = "$imagePath/public-transport.png";
+  static const String shoppingBag = "$imagePath/shopping-bag.png";
+  static const String fastfood = "$imagePath/fast-food.png";
+  static const String handshake = "$imagePath/handshake.png";
 }
 
 class SvgAsset {

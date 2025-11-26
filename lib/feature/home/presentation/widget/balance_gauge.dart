@@ -7,8 +7,9 @@ import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/add_price.dart';
+import 'package:tahwishtak/feature/home/presentation/widget/daily_activity_screen.dart';
 
-class BalanceGaugeWidget extends StatelessWidget {
+class BalanceGaugeWidget extends StatefulWidget {
   final double currentBalance;
   final double maxBalance;
   final String date;
@@ -21,9 +22,52 @@ class BalanceGaugeWidget extends StatelessWidget {
   });
 
   @override
+  State<BalanceGaugeWidget> createState() => _BalanceGaugeWidgetState();
+}
+
+class _BalanceGaugeWidgetState extends State<BalanceGaugeWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  bool isOpened = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void toggleMenu() {
+    setState(() {
+      if (isOpened) {
+        _animationController.reverse();
+      } else {
+        _animationController.forward();
+      }
+      isOpened = !isOpened;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final responsive = ResponsiveUtils(context);
-    final double normalizedValue = currentBalance.clamp(0, maxBalance);
+    final double normalizedValue = widget.currentBalance.clamp(
+      0,
+      widget.maxBalance,
+    );
 
     return Stack(
       children: [
@@ -42,7 +86,7 @@ class BalanceGaugeWidget extends StatelessWidget {
                         startAngle: 180,
                         endAngle: 0,
                         minimum: 0,
-                        maximum: maxBalance,
+                        maximum: widget.maxBalance,
                         showLabels: false,
                         showTicks: false,
                         canScaleToFit: true,
@@ -75,7 +119,7 @@ class BalanceGaugeWidget extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          "ج  $currentBalance",
+                          "ج  ${widget.currentBalance}",
                           style: Theme.of(context).textTheme.titleLarge!
                               .copyWith(
                                 color: ColorManger.secondaryColor,
@@ -89,7 +133,7 @@ class BalanceGaugeWidget extends StatelessWidget {
                               .copyWith(fontSize: responsive.setTextSize(4.5)),
                         ),
                         SizedBox(height: responsive.setHeight(1)),
-                        Text(date),
+                        Text(widget.date),
                       ],
                     ),
                   ),
@@ -102,7 +146,8 @@ class BalanceGaugeWidget extends StatelessWidget {
           right: responsive.setWidth(8),
           top: responsive.setHeight(2),
           child: GestureDetector(
-            onTap: () => _showAddPriceSheet(context),
+            onTap: toggleMenu,
+            //
             child: ShaderMask(
               shaderCallback: (Rect bounds) {
                 return const LinearGradient(
@@ -119,7 +164,91 @@ class BalanceGaugeWidget extends StatelessWidget {
             ),
           ),
         ),
+
+        Positioned(
+          right: responsive.setWidth(1),
+          top: responsive.setHeight(9),
+          child: SizeTransition(
+            sizeFactor: _animation,
+            axisAlignment: -1.0,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                _buildOption(
+                  icon: IconlyBold.wallet,
+                  label: 'أضف رصيد',
+                  onPressed: () => _showAddPriceSheet(context),
+                ),
+                SizedBox(height: responsive.setHeight(1)),
+                _buildOption(
+                  icon: IconlyBold.plus,
+                  label: 'اضف نشاط ',
+                  onPressed: () => _showActivitySheet(context),
+                ),
+              ],
+            ),
+          ),
+        ),
       ],
+    );
+  }
+
+  Widget _buildOption({
+    required IconData icon,
+    required String label,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 2),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withValues(alpha: 0.2),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: MaterialButton(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        onPressed: onPressed,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ShaderMask(
+              shaderCallback: (bounds) => const LinearGradient(
+                colors: [Color(0xFF00796B), Color(0xFF26A69A)],
+              ).createShader(bounds),
+              child: const Icon(IconlyBold.wallet, color: Colors.white),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: const TextStyle(
+                color: Color(0xFF00796B),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showActivitySheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return BlocProvider.value(
+          value: instance<HomeCubit>(),
+          child: const ActivityBottomSheet(),
+        );
+      },
     );
   }
 

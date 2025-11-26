@@ -58,35 +58,25 @@ class _NativeBottomNavBarState extends State<NativeBottomNavBar> {
           ),
         ],
       ),
-      bottomNavigationBar: SlidingClippedNavBar(
-        backgroundColor: Colors.white,
+      bottomNavigationBar: SizedBox(
+        height: responsive.setHeight(9),
+        child: SlidingClippedNavBar(
+          backgroundColor: Colors.white,
 
-        onButtonPressed: onButtonPressed,
-        iconSize: responsive.setIconSize(8),
-        activeColor: ColorManger.primaryColor,
-        fontSize: responsive.setTextSize(3),
-        selectedIndex: selectedIndex,
+          onButtonPressed: onButtonPressed,
+          iconSize: responsive.setIconSize(8),
+          activeColor: ColorManger.primaryColor,
+          fontSize: responsive.setTextSize(3),
+          selectedIndex: selectedIndex,
 
-        barItems: <BarItem>[
-          // BarItem(icon: IconlyBold.setting, title: 'الاعدادات'),
-          // BarItem(icon: Icons.bar_chart_sharp, title: 'التحليل الشهرى'),
-          BarItem(icon: IconlyBold.chart, title: 'تقسيم الميزانية'),
-          BarItem(icon: IconlyBold.home, title: 'الصفحة الرئيسية         '),
-        ],
+          barItems: <BarItem>[
+            BarItem(icon: IconlyBold.chart, title: 'تقسيم الميزانية'),
+            BarItem(icon: IconlyBold.home, title: 'الصفحة الرئيسية         '),
+          ],
+        ),
       ),
     );
   }
 }
 
-List<Widget> _listOfWidget = <Widget>[
-  // Container(
-  //   alignment: Alignment.center,
-  //   child: const Icon(IconlyBold.home, size: 56, color: Colors.green),
-  // ),
-  // Container(
-  //   alignment: Alignment.center,
-  //   child: const Icon(IconlyBold.search, size: 56, color: Colors.brown),
-  // ),
-  CustomDonutChart(),
-  HomePage(),
-];
+List<Widget> _listOfWidget = <Widget>[CustomDonutChart(), HomePage()];
