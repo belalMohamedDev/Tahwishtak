@@ -12,6 +12,7 @@ import 'package:tahwishtak/feature/bottomNavBar/presentation/screen/bottom_nav_b
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/onBoarding/cubit/on_boarding_cubit.dart';
 import 'package:tahwishtak/feature/onBoarding/presentation/screens/on_boarding_screen.dart';
+import 'package:tahwishtak/feature/profile/presentation/screen/profile_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
@@ -50,6 +51,9 @@ class RouteGenerator {
             child: const NativeBottomNavBar(),
           ),
         );
+
+      case Routes.profileRoute:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
 
       case Routes.noRoute:
         return MaterialPageRoute(builder: (_) => const RouteStatesScreen());

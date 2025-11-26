@@ -1,4 +1,5 @@
 const String imagePath = "assets/images";
+const String svgPath = "assets/svg";
 
 class ImageAsset {
   static const String onBoardingFirstScreen =
@@ -20,4 +21,8 @@ class ImageAsset {
   static const String noRoute = "$imagePath/noRoute.svg";
   static const String profile = "$imagePath/profile.jpg";
   static const String bottomBackground = "$imagePath/bottomBackground.png";
+}
+
+class SvgAsset {
+  static const String subtract = "$imagePath/Subtract.svg";
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:tahwishtak/core/application/di.dart';
+import 'package:tahwishtak/core/routing/routes.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
+import 'package:tahwishtak/core/utils/extensions.dart';
 import 'package:tahwishtak/core/utils/responsive_utils.dart';
 import 'package:tahwishtak/feature/home/logic/home_cubit.dart';
 import 'package:tahwishtak/feature/home/presentation/widget/balance_gauge.dart';
@@ -239,14 +241,19 @@ class _HomePageState extends State<HomePage>
                         ),
                       ),
                       SizedBox(width: responsive.setWidth(4)),
-                      CircleAvatar(
-                        backgroundColor: ColorManger.whiteColor,
-                        maxRadius: responsive.setHeight(3),
-                        child: ClipOval(
-                          child: Image.asset(
-                            fit: BoxFit.cover,
-                            ImageAsset.profile,
-                            height: responsive.setHeight(10),
+                      GestureDetector(
+                        onTap: () {
+                          context.pushNamed(Routes.profileRoute);
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: ColorManger.whiteColor,
+                          maxRadius: responsive.setHeight(3),
+                          child: ClipOval(
+                            child: Image.asset(
+                              fit: BoxFit.cover,
+                              ImageAsset.profile,
+                              height: responsive.setHeight(10),
+                            ),
                           ),
                         ),
                       ),
