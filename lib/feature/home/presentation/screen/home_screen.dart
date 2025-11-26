@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:tahwishtak/core/common/sharedWidget/loading_overlay.dart';
 import 'package:tahwishtak/core/routing/routes.dart';
 import 'package:tahwishtak/core/style/color/color_manger.dart';
 import 'package:tahwishtak/core/style/images/asset_manger.dart';
@@ -18,48 +19,65 @@ class HomePage extends StatelessWidget {
     final responsive = ResponsiveUtils(context);
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        return Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: responsive.setPadding(top: 1, left: 4, right: 4),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _appBarWidget(responsive, context),
+        return Stack(
+          children: [
+            Scaffold(
+              body: SafeArea(
+                child: Padding(
+                  padding: responsive.setPadding(top: 1, left: 4, right: 4),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _appBarWidget(responsive, context),
 
-                  BalanceGaugeWidget(
-                    currentBalance:
-                        context
-                            .read<HomeCubit>()
-                            .getTodayActivities
-                            ?.currentBalance ??
-                        0.0,
-                    maxBalance:
-                        context
-                            .read<HomeCubit>()
-                            .getTodayActivities
-                            ?.startingBalance ??
-                        500.0,
-                    date:
-                        context.read<HomeCubit>().getTodayActivities?.date ??
-                        '--',
+                      BalanceGaugeWidget(
+                        currentBalance:
+                            context
+                                .read<HomeCubit>()
+                                .getTodayActivities
+                                ?.currentBalance ??
+                            0.0,
+                        maxBalance:
+                            context
+                                .read<HomeCubit>()
+                                .getTodayActivities
+                                ?.startingBalance ??
+                            500.0,
+                        date:
+                            context
+                                .read<HomeCubit>()
+                                .getTodayActivities
+                                ?.date ??
+                            '--',
+                      ),
+
+                      SizedBox(height: responsive.setHeight(2)),
+
+                      Divider(
+                        color: ColorManger.textColor.withAlpha(80),
+                        thickness: 0.6,
+                      ),
+                      SizedBox(height: responsive.setHeight(2)),
+                      _todayActivityPriceRow(context, responsive),
+                      SizedBox(height: responsive.setHeight(2)),
+
+                      todayActiviteContianer(context, responsive),
+                    ],
                   ),
-
-                  SizedBox(height: responsive.setHeight(2)),
-
-                  Divider(
-                    color: ColorManger.textColor.withAlpha(80),
-                    thickness: 0.6,
-                  ),
-                  SizedBox(height: responsive.setHeight(2)),
-                  _todayActivityPriceRow(context, responsive),
-                  SizedBox(height: responsive.setHeight(2)),
-
-                  todayActiviteContianer(context, responsive),
-                ],
+                ),
               ),
             ),
-          ),
+
+            LoadingOverlay(
+              isLoading: state.maybeWhen(
+                getTodayActivitiesLoading: () => true,
+                addActivityLoading: () => true,
+                startDayLoading: () => true,
+                deleteActivityLoading: () => true,
+                orElse: () => false,
+              ),
+            ),
+          ],
         );
       },
     );
@@ -299,10 +317,8 @@ class HomePage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(ctx).pop(); // 👈 أقفل الـ dialog الأول
-                homeCubit.fetchDeleteActivity(
-                  id,
-                ); // 👈 استخدم الـ cubit المخزون
+                Navigator.of(ctx).pop();
+                homeCubit.fetchDeleteActivity(id);
               },
               child: const Text("حذف"),
             ),
